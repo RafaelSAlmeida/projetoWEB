@@ -36,6 +36,8 @@ include('php/autoload.php');
                         <input type="text" id="usr" name="usr" value="Usuário ou E-mail"/>
                         <br/>
                         <input type="text" id="pass" name="pass" value="Senha"/><br/>
+                        <label id="aviso"></label>
+                        <br/>
                         <input type="checkbox" id="lembrar"/>Lembrar Dados?
                         <a>Esqueceu sua senha?</a>
                         <br/>
@@ -64,5 +66,29 @@ include('php/autoload.php');
         
     </body>
     <script type="text/javascript">
+        $.ready(function(){
+            //busca o @ no campo login se sim é e-mail senao
+            var login = email;
+            if(@)
+                flag=1;
+            else {
+                flag =0;
+}
+
+            $("#button").click(function(){
+                //pegar a senha transformar para md5
+               $.post("ajax/validarLogin.php",
+                       {login:login,senha:senha,email:flag},
+                       function(data){
+                           if(data=='sucesso'){
+                               //rediciona para pagina de perfil
+                           }else if(data=='erro'){
+                               $("#aviso").text('Usuario ou senha Invalidos');
+}
+
+                           
+                       }),true 
+            });
+        });
     </script>
 </html>

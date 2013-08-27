@@ -38,7 +38,7 @@ class Conexao {
         }
     }
 
-    function query($query){
+    function execute_query($query){
         $this->conecta();
         $this->query = $query;
         if($this->resultado = mysql_query($this->query)){
