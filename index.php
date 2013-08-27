@@ -69,7 +69,7 @@ include('php/autoload.php');
         $.ready(function(){
             //busca o @ no campo login se sim é e-mail senao
             var login = email;
-            if(@)
+            if('@')
                 flag=1;
             else {
                 flag =0;
