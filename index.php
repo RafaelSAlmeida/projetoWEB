@@ -79,6 +79,32 @@ include('php/autoload.php');
         }
 
         $(document).ready(function(){
+            //alert("entrou");
+            //busca o @ no campo login se sim é e-mail senao
+            
+            $("#entrar").click(function(){
+                var login = $("#usr").val();
+                var email = login.indexOf('@');
+                if(email > 0 )
+                    flag=true;
+                else {
+                    flag =false;
+                }
+               $.ajax({url: "ajax/validar.php",
+                            data: {login:login,
+                                   senha:$("#pass").val(),
+                                   acao:"validarLogin"},
+                            type:"POST",
+                            async:false,
+                            success:function(data){
+                                if(data=="sucesso"){
+                                    alert("BEM-VINDO");
+                                    window.location = 'perfil.php?u=';
+                                }else{
+                                    alert("ERRO");
+                                }
+                            }}); 
+            });
             $("#nome").focus(function(){
                 if($(this).val()=="Nome")
                     $(this).val('');
@@ -88,6 +114,31 @@ include('php/autoload.php');
                 if($(this).val()=='')
                 {
                     $(this).val('Nome');
+                }
+            });
+            
+            $("#usr").focus(function(){
+                if($(this).val()=="Usuário ou E-mail")
+                    $(this).val('');
+            });
+            
+            $("#usr").blur(function(){
+                if($(this).val()=='')
+                {
+                    $(this).val('Usuário ou E-mail');
+                }
+            });
+            
+            
+            $("#pass").focus(function(){
+                if($(this).val()=="Senha")
+                    $(this).val('');
+            });
+            
+            $("#pass").blur(function(){
+                if($(this).val()=='')
+                {
+                    $(this).val('Senha');
                 }
             });
             
