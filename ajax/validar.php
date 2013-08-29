@@ -32,15 +32,12 @@ session_start();
             $con = new Conexao();
             $login = $_POST['login'];
             $senha = $_POST['senha'];
-            /*$email = $_POST['email'];
-            if($email){
-
-                $sql = "";
-            }else{
-                $sql = "";
-            }*/
-
-            $sql = "SELECT * FROM usuario WHERE usu_login='$login' ";
+            $email = $_POST['flag'];
+            if($email = true){
+                $sql = "SELECT * FROM usuario WHERE usu_email='$login'";
+            }else if($email = false){
+                $sql = "SELECT * FROM usuario WHERE usu_login='$login'";
+            }
 
             $con->execute_query($sql);
             $result= mysql_num_rows($con->resultado);

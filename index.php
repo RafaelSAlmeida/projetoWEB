@@ -12,7 +12,9 @@ include('php/autoload.php');
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         
         <link rel="stylesheet" type="text/css" href="css/geral.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.9.2.custom.css" />
         <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.js"></script>
     </head>
     <body>
         
@@ -37,13 +39,13 @@ include('php/autoload.php');
                         
                         <input type="text" id="usr" name="usr" value="Usuário ou E-mail"/>
                         <br/>
-                        <input type="text" id="pass" name="pass" value="Senha"/><br/>
+                        <input type="password" id="pass" name="pass" value="Senha"/><br/>
                         <label id="aviso"></label>
                         <br/>
                         <input type="checkbox" id="lembrar"/>Lembrar Dados?
                         <a>Esqueceu sua senha?</a>
                         <br/>
-                        <input type="button" id="entrar" name="entrar" value="ENTRAR" />
+                        <input type="button" class="button" id="entrar" name="entrar" value="ENTRAR" />
                     </fieldset>
                     <fieldset id="join">
                         <legend>Crie sua Conta</legend>
@@ -57,7 +59,7 @@ include('php/autoload.php');
                         <input type="text" id="senha" name="senha" value="Senha" maxlength="10" required="true"/>
                         <label id="senhaValidate"></label>
                         <br/>
-                        <input type="button" id="cadastrar" name="cadastrar" value="Cadastrar" required="true" />
+                        <input type="button" class="button" id="cadastrar" name="cadastrar" value="Cadastrar" required="true" />
                        </fom>
                    </fieldset>
                 </div>
@@ -79,20 +81,20 @@ include('php/autoload.php');
         }
 
         $(document).ready(function(){
-            //alert("entrou");
-            //busca o @ no campo login se sim é e-mail senao
+           $(".button").button();
             
             $("#entrar").click(function(){
                 var login = $("#usr").val();
                 var email = login.indexOf('@');
                 if(email > 0 )
-                    flag=true;
+                    var flag = true;
                 else {
-                    flag =false;
+                    var flag = false;
                 }
                $.ajax({url: "ajax/validar.php",
                             data: {login:login,
                                    senha:$("#pass").val(),
+                                   flag:flag,
                                    acao:"validarLogin"},
                             type:"POST",
                             async:false,
@@ -100,8 +102,8 @@ include('php/autoload.php');
                                 if(data=="sucesso"){
                                     alert("BEM-VINDO");
                                     window.location = 'perfil.php?u=';
-                                }else{
-                                    alert("ERRO");
+                                }else if(data=="erro"){
+                                    alert("Login Inválido");
                                 }
                             }}); 
             });
