@@ -66,22 +66,22 @@ include('php/autoload.php');
         
     </body>
     <script type="text/javascript">
-        $.ready(function(){
+        $(document).ready(function(){
+            //alert("entrou");
             //busca o @ no campo login se sim é e-mail senao
-            var login = email;
-            if('@')
-                flag=1;
+            var login = $("#usr");
+            var email = login.indexOf('@');
+            if(email > 0 )
+                flag=true;
             else {
-                flag =0;
-}
-
-            $("#button").click(function(){
-                //pegar a senha transformar para md5
+                flag =false;
+            }
+            $("#entrar").click(function(){
                $.post("ajax/validarLogin.php",
-                       {login:login,senha:senha,email:flag},
+                       {login:login,senha:senha, email:flag},
                        function(data){
                            if(data=='sucesso'){
-                               //rediciona para pagina de perfil
+                               $(window.document.location).attr('href',perfil.php);
                            }else if(data=='erro'){
                                $("#aviso").text('Usuario ou senha Invalidos');
 }
