@@ -12,8 +12,10 @@ include('php/autoload.php');
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         
         <link rel="stylesheet" type="text/css" href="css/geral.css" />
+        <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
     </head>
     <body>
+        
         <div id="geral">
             <div id="topo">
             </div>
@@ -45,18 +47,19 @@ include('php/autoload.php');
                     </fieldset>
                     <fieldset id="join">
                         <legend>Crie sua Conta</legend>
-                        
-                        <input type="text" id="nome" name="nome" value="Nome"/>
+                       <form action="" id="formCadastro" method="POST"> 
+                        <input type="text" id="nome" name="nome" value="Nome" required="true"/>
                         <label id="nomeValidate"></label>
                         <br/>
-                        <input type="text" id="email" name="email" value="E-mail"/>
+                        <input type="text" id="email" name="email" value="E-mail" required="true"/>
                         <label id="emailValidate"></label>
                         <br/>
-                        <input type="text" id="pass" name="pass" value="Senha"/>
+                        <input type="text" id="senha" name="senha" value="Senha" maxlength="10" required="true"/>
                         <label id="senhaValidate"></label>
                         <br/>
-                        <input type="button" id="cadastrar" name="cadastrar" value="Cadastrar" />
-                    </fieldset>
+                        <input type="button" id="cadastrar" name="cadastrar" value="Cadastrar" required="true" />
+                       </fom>
+                   </fieldset>
                 </div>
                 </div>
             </div>
@@ -66,29 +69,101 @@ include('php/autoload.php');
         
     </body>
     <script type="text/javascript">
-        $(document).ready(function(){
-            //alert("entrou");
-            //busca o @ no campo login se sim é e-mail senao
-            var login = $("#usr");
-            var email = login.indexOf('@');
-            if(email > 0 )
-                flag=true;
-            else {
-                flag =false;
-            }
-            $("#entrar").click(function(){
-               $.post("ajax/validarLogin.php",
-                       {login:login,senha:senha, email:flag},
-                       function(data){
-                           if(data=='sucesso'){
-                               $(window.document.location).attr('href',perfil.php);
-                           }else if(data=='erro'){
-                               $("#aviso").text('Usuario ou senha Invalidos');
-}
+        
+        function IsEmail(email){
+            var exclude=/[^@\-\.\w]|^[_@\.\-]|[\._\-]{2}|[@\.]{2}|(@)[^@]*\1/;
+            var check=/@[\w\-]+\./;
+            var checkend=/\.[a-zA-Z]{2,3}$/;
+            if(((email.search(exclude) != -1)||(email.search(check)) == -1)||(email.search(checkend) == -1)){return false;}
+            else {return true;}
+        }
 
-                           
-                       }),true 
+        $(document).ready(function(){
+            $("#nome").focus(function(){
+                if($(this).val()=="Nome")
+                    $(this).val('');
             });
+            
+            $("#nome").blur(function(){
+                if($(this).val()=='')
+                {
+                    $(this).val('Nome');
+                }
+            });
+            
+            $("#email").focus(function(){
+                if($(this).val()=="E-mail")
+                    $(this).val('');
+            });
+            
+            $("#email").blur(function(){
+                if($(this).val()==''){
+                    $(this).val('E-mail');
+                    $("#emailValidate").text('');
+                }
+                else{
+                    if(IsEmail($(this).val())){
+                    $.ajax({url: "ajax/validar.php",
+                            data: {email:$(this).val(),
+                                   acao:"validarEmail"},
+                            type:"POST",
+                            async:false,
+                            success:function(data){
+                                if(data=='0')
+                                    $("#emailValidate").text('OK');
+                                else{
+                                    $("#email").val("E-mail");
+                                    $("#email").focus();
+                                    $("#emailValidate").text('ERRO');
+                                }
+                            }});
+                    }else{
+                        $("#email").val("E-mail");
+                        $("#email").focus();
+                        $("#emailValidate").text('ERRO');
+                    }       
+
+            }
+            });
+                        
+            $("#senha").focus(function(){
+                if($(this).val()=="Senha")
+                {   
+                    $(this).attr("type","password");
+                    $(this).val('');
+                }
+            });
+            
+            $("#senha").blur(function(){
+                if($(this).val()=='')
+                {
+                    $(this).attr("type","text");
+                    $(this).val('Senha');
+                }
+            });
+            
+            //BUTTON CADASTRAR
+            $("#cadastrar").click(function(){
+                if(IsEmail($("#email").val())){
+                    if($("#senha").attr("type")==="password"){
+                        
+                        $("#formCadastro").attr("action","cadastro_usuario.php");
+                        $("#formCadastro").submit();
+                        
+                    }else {
+                        $("#senha").focus();
+                    }
+
+                }else{
+                    $("#email").val("E-mail");
+                    $("#email").focus();
+                    $("#emailValidate").text('ERRO');
+                } 
+            });
+            //BUTTON CADASTRAR
+            
         });
+        
+        
     </script>
 </html>

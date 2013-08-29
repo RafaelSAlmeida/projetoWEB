@@ -5,6 +5,9 @@
     Description:
         CSS geral do sistema.
 */
+.erro{
+    border:1px solid red;   
+}
 #geral{
     width:100%;
     height:100%;
