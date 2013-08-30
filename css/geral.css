@@ -6,7 +6,20 @@
         CSS geral do sistema.
 */
 *{
-    font-family: Verdana,Arial,sans-serif; font-size: 12px;
+    font-family: Verdana,Arial,sans-serif; 
+}
+input[type="text"]{
+    padding:6px 6px;
+}
+
+input[type="password"]{
+    padding:6px 6px;
+}
+h1{
+    font-size:24px;
+}
+p,label,a{
+    font-size:12px;
 }
 .erro{
     border:1px solid red;   
@@ -22,8 +35,8 @@
     
 }
 .wrap{
-    margin-left:10%;
-    width:80%;
+    margin-left:15%;
+    width:70%;
     
 }
 #conteudo{

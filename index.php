@@ -41,8 +41,7 @@ include('php/autoload.php');
                         <br/>
                         <input type="password" id="pass" name="pass" placeholder="Senha"/><br/>
                         <label id="aviso"></label>
-                        <br/>
-                        <input type="checkbox" id="lembrar" />Lembrar Dados?
+                        <p><input type="checkbox" id="lembrar" />Lembrar Dados?</p>
                         <a>Esqueceu sua senha?</a>
                         <br/>
                         <input type="button" class="button" id="entrar" name="entrar" value="ENTRAR" />
@@ -120,45 +119,7 @@ include('php/autoload.php');
                                     alert("Login ou senha Inválido");
                                 }
                             }}); 
-            });
-            $("#nome").focus(function(){
-                if($(this).val()=="Nome")
-                    $(this).val('');
-            });
-            
-            $("#nome").blur(function(){
-                if($(this).val()=='')
-                {
-                    $(this).val('Nome');
-                }
-            });
-            
-            $("#usr").focus(function(){
-                if($(this).val()=="Usuário ou E-mail")
-                    $(this).val('');
-            });
-            
-            $("#usr").blur(function(){
-                if($(this).val()=='')
-                {
-                    $(this).val('Usuário ou E-mail');
-                }
-            });
-            
-            
-            $("#pass").focus(function(){
-                if($(this).val()=="Senha")
-                    $(this).val('');
-            });
-            
-            $("#pass").blur(function(){
-                if($(this).val()=='')
-                {
-                    $(this).val('Senha');
-                }
-            });
-            
-            
+            });   
             $("#email").blur(function(){
                 if($(this).val()!=''){
                  
@@ -172,13 +133,11 @@ include('php/autoload.php');
                                 if(data=='0')
                                     $("#emailValidate").text('OK');
                                 else{
-                                    $("#email").val("E-mail");
                                     $("#email").focus();
                                     $("#emailValidate").text('ERRO');
                                 }
                             }});
                     }else{
-                        $("#email").val("E-mail");
                         $("#email").focus();
                         $("#emailValidate").text('ERRO');
                     }       
@@ -206,7 +165,6 @@ include('php/autoload.php');
                     }
 
                 }else{
-                    $("#email").val("E-mail");
                     $("#email").focus();
                     $("#emailValidate").text('ERRO');
                 } 

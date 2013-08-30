@@ -25,7 +25,7 @@ if(!empty($_POST))
     <body>
         <div id="geral">
             <div id="topo">
-                <?php include('php/buscar.php');?>
+               
             </div>
             <div id="conteudo">
                 <div class="wrap">
@@ -216,7 +216,7 @@ if(!empty($_POST))
             
                         
             $("#confSenha").focus(function(){
-                if($(this).val()=="Confirmação de Senha")
+                if($(this).val()=="")
                 {   
                     $(this).attr("type","password");
                     $(this).val('');
@@ -224,11 +224,8 @@ if(!empty($_POST))
             });
             
             $("#confSenha").blur(function(){
-                if($(this).val()=='')
+                if($(this).val()!='')
                 {
-                    $(this).attr("type","text");
-                    $(this).val('Confirmação de Senha');
-                }else{
                     if(!confirmaSenha($("#senha").val(),$("#confSenha").val())){
                         
                         $("#confSenhaValidate").text('ERRO');
