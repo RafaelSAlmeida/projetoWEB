@@ -8,13 +8,10 @@
 *{
     font-family: Verdana,Arial,sans-serif; 
 }
-input[type="text"]{
+input[type="text"],input[type="password"],select{
     padding:6px 6px;
 }
 
-input[type="password"]{
-    padding:6px 6px;
-}
 h1{
     font-size:24px;
 }

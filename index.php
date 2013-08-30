@@ -77,7 +77,6 @@ include('php/autoload.php');
                             async:false,
                             success:function(data){
                                 if(data=="sucesso"){
-                                    alert("BEM-VINDO");
                                     window.location = 'perfil.php?u=';
                                 }else if(data=="erro"){
                                     alert("Login ou senha Inválido");
