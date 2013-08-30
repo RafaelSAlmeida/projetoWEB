@@ -42,7 +42,7 @@ include('php/autoload.php');
                         <input type="password" id="pass" name="pass" placeholder="Senha"/><br/>
                         <label id="aviso"></label>
                         <br/>
-                        <input type="checkbox" id="lembrar"/>Lembrar Dados?
+                        <input type="checkbox" id="lembrar" />Lembrar Dados?
                         <a>Esqueceu sua senha?</a>
                         <br/>
                         <input type="button" class="button" id="entrar" name="entrar" value="ENTRAR" />
@@ -71,7 +71,19 @@ include('php/autoload.php');
         
     </body>
     <script type="text/javascript">
-        
+        $.ajax({url: "ajax/validar.php",
+                            data: {
+                                   acao:"validarCookie"},
+                            type:"POST",
+                            async:false,
+                            success:function(data){
+                                if(data=="sucesso"){
+                                    alert("BEM-VINDO");
+                                    window.location = 'perfil.php?u=';
+                                }else if(data=="erro"){
+                                    alert("Login ou senha Inválido");
+                                }
+                            }});
         function IsEmail(email){
             var exclude=/[^@\-\.\w]|^[_@\.\-]|[\._\-]{2}|[@\.]{2}|(@)[^@]*\1/;
             var check=/@[\w\-]+\./;
@@ -91,10 +103,12 @@ include('php/autoload.php');
                 else {
                     var flag = false;
                 }
+                var check = document.getElementById("lembrar").checked;
                $.ajax({url: "ajax/validar.php",
                             data: {login:login,
                                    senha:$("#pass").val(),
                                    flag:flag,
+                                   check:check,
                                    acao:"validarLogin"},
                             type:"POST",
                             async:false,
@@ -103,7 +117,7 @@ include('php/autoload.php');
                                     alert("BEM-VINDO");
                                     window.location = 'perfil.php?u=';
                                 }else if(data=="erro"){
-                                    alert("Login Inválido");
+                                    alert("Login ou senha Inválido");
                                 }
                             }}); 
             });

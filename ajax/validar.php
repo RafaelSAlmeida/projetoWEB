@@ -33,10 +33,11 @@ session_start();
             $login = $_POST['login'];
             $senha = $_POST['senha'];
             $email = $_POST['flag'];
-            if($email = true){
-                $sql = "SELECT * FROM usuario WHERE usu_email='$login'";
-            }else if($email = false){
+            $check = $_POST['check'];
+            if($email == "false"){
                 $sql = "SELECT * FROM usuario WHERE usu_login='$login'";
+            }else if($email == "true"){
+                $sql = "SELECT * FROM usuario WHERE usu_email='$login'";
             }
 
             $con->execute_query($sql);
@@ -46,15 +47,21 @@ session_start();
                 if(md5($senha) == $linha->usu_senha){
                     $_SESSION['login'] = $login;
                     $_SESSION['senha'] = $linha->usu_senha;
+                    if($check == "true"){
+                        setcookie("usuario", $login,  time()+60*60*24*30);
+                    }
                     echo "sucesso";
                 }
                 else
-                    echo $sql;
+                    echo "erro sql";
             } else
                 echo "erro";
             exit;
+        }else if($acao == 'validarCookie'){
+            if($_COOKIE['usuario']){
+                echo "sucesso";
+            }
         }
-        
     }else{
         header('Location:../index.php');
     }
