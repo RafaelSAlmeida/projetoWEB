@@ -18,23 +18,26 @@ if(!empty($_POST))
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         
         <link rel="stylesheet" type="text/css" href="css/geral.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.9.2.custom.css" />
         <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.js"></script>
     </head>
     <body>
         <div id="geral">
             <div id="topo">
+                <?php include('php/buscar.php');?>
             </div>
             <div id="conteudo">
                 <div class="wrap">
                     <h1>SOU NOVO AQUI</h1>
                     <form action="" method="POST" id="formUsuario">
                         <input type="hidden" id="acao" name="acao" value="inserir_usuario"/>
-                        <input type="text" id="nome" name="nome" value="<?php if($nome) echo $nome; else echo "Nome";?>" />
-                        <input type="text" id="sobrenome" name="sobrenome" value="Sobrenome" /><br/>
-                        <input type="text" id="usuario" name="usuario" value="Escolha seu usuário" />
+                        <input type="text" id="nome" name="nome" <?php if($nome) echo 'value="'.$nome.'"'; else echo 'placeholder="Nome"';?>" />
+                        <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome" /><br/>
+                        <input type="text" id="usuario" name="usuario" placeholder="Escolha seu usuário" />
                         <label id="usuarioValidate"></label><br/><br/>
                         <label>Data de Nascimento:</label><br/>
-                        <select id="dia" name="dia">
+                        <select id="dia" name="dia" >
                             <option value="">DIA</option>
                         </select>
                         
@@ -58,14 +61,14 @@ if(!empty($_POST))
                             <option value="">ANO</option>
                         </select>
                         <br/><br/>
-                        <input type="text" id="email" name="email" value="<?php if($email) echo $email; else echo "E-mail";?>" />
+                        <input type="text" id="email" name="email" <?php if($email) echo 'value="'.$email.'"'; else echo 'placeholder="E-mail"';?> />
                         <label id="emailValidate"></label><br/>
-                        <input type="text" id="confEmail" name="confEmail" value="Confirmação de E-mail" />
+                        <input type="text" id="confEmail" name="confEmail" placeholder="Confirmação de E-mail" />
                         <label id="confEmailValidate"></label><br/><br/>
-                        <input type="<?php if($senha) echo "password"; else echo "text";?>" id="senha" name="senha" value="<?php if($senha) echo $senha; else echo "Senha";?>" /><br/>
-                        <input type="text" id="confSenha" name="confSenha" value="Confirmação de Senha" />
+                        <input type="<?php if($senha) echo "password"; else echo "text";?>" id="senha" name="senha" <?php if($senha) echo 'value="'.$senha.'"'; else echo 'placeholder="Senha"';?>" /><br/>
+                        <input type="text" id="confSenha" name="confSenha" placeholder="Confirmação de Senha" />
                         <label id="confSenhaValidate"></label><br/><br/>
-                        <input type="button" id="cadastrar" name="cadastrar" value="Criar Conta" /><br/>
+                        <input type="button" class="button" id="cadastrar" name="cadastrar" value="Criar Conta" /><br/>
                     </form>
                 </div>
             </div>
@@ -156,6 +159,7 @@ if(!empty($_POST))
 
         }
         $(document).ready(function(){
+            $(".button").button();
             for(var i=1;i<=31;i++)
             {
                 $("#dia").append("<option value="+i+">"+i+"</option>");
@@ -168,45 +172,8 @@ if(!empty($_POST))
             }
             
             
-            $("#nome").focus(function(){
-                if($(this).val()=="Nome")
-                    $(this).val('');
-            });
-            
-            $("#nome").blur(function(){
-                if($(this).val()=='')
-                {
-                    $(this).val('Nome');
-                }else{
-                    $(this).removeAttr("class");
-                }
-            });
-            
-            $("#sobrenome").focus(function(){
-                if($(this).val()=="Sobrenome")
-                    $(this).val('');
-            });
-            
-            $("#sobrenome").blur(function(){
-                if($(this).val()=='')
-                {
-                    $(this).val('Sobrenome');
-                }else{
-                    $(this).removeAttr("class");
-                }
-            });
-            
-            $("#email").focus(function(){
-                if($(this).val()=="E-mail")
-                    $(this).val('');
-            });
-            
             $("#email").blur(function(){
-                if($(this).val()==''){
-                    $(this).val('E-mail');
-                    $("#emailValidate").text('');
-                }
-                else{
+                if($(this).val()!=''){
                     if(IsEmail($(this).val())){
                     $.ajax({url: "ajax/validar.php",
                             data: {email:$(this).val(),
@@ -234,19 +201,15 @@ if(!empty($_POST))
             });
                         
             $("#senha").focus(function(){
-                if($(this).val()=="Senha")
+                if($(this).val()=="")
                 {   
                     $(this).attr("type","password");
-                    $(this).val('');
                 }
             });
             
             $("#senha").blur(function(){
                 if($(this).val()=='')
                 {
-                    $(this).attr("type","text");
-                    $(this).val('Senha');
-                }else{
                     $(this).removeAttr("class");
                 }
             });
@@ -278,16 +241,10 @@ if(!empty($_POST))
                 }
             });
             
-            $("#confEmail").focus(function(){
-                if($(this).val()==="Confirmação de E-mail")
-                    $(this).val('');
-            });
+            
             
             $("#confEmail").blur(function(){
-                if($(this).val()==='')
-                {
-                    $(this).val('Confirmação de E-mail');
-                }else{
+                
                     if(!confirmaEmail($("#email").val(),$("#confEmail").val()))
                     {
                         $("#confEmailValidate").text('ERRO');
@@ -297,22 +254,13 @@ if(!empty($_POST))
                         $(this).removeAttr("class");
                         $("#confEmailValidate").text('');
                     }
-                }
+                
             });
                         
-            $("#usuario").focus(function(){
-                if($(this).val()=="Escolha seu usuário")
-                {   
-                   $(this).val('');
-                }
-            });
             
             $("#usuario").blur(function(){
-                if($(this).val()=='')
+                if($(this).val()!='')
                 {
-                  $(this).val('Escolha seu usuário');
-                }
-                else{
                     $.ajax({url: "ajax/validar.php",
                             data: {login:$(this).val(),
                                    acao:"validarUsuario"},
@@ -325,8 +273,7 @@ if(!empty($_POST))
                                      $("#usuario").removeAttr("class");                    
                                 }
                                 else{
-                                    $("#usuario").val("Escolha seu usuário");
-                                    $("#usuario").focus();
+                                   $("#usuario").focus();
                                     $("#usuarioValidate").text('ERRO');
                                 }
                             }});      

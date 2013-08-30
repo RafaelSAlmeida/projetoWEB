@@ -37,9 +37,9 @@ include('php/autoload.php');
                     <fieldset id="login">
                         <legend>Login</legend>
                         
-                        <input type="text" id="usr" name="usr" value="Usuário ou E-mail"/>
+                        <input type="text" id="usr" name="usr" placeholder="Usuário ou E-mail"/>
                         <br/>
-                        <input type="password" id="pass" name="pass" value="Senha"/><br/>
+                        <input type="password" id="pass" name="pass" placeholder="Senha"/><br/>
                         <label id="aviso"></label>
                         <br/>
                         <input type="checkbox" id="lembrar"/>Lembrar Dados?
@@ -50,13 +50,13 @@ include('php/autoload.php');
                     <fieldset id="join">
                         <legend>Crie sua Conta</legend>
                        <form action="" id="formCadastro" method="POST"> 
-                        <input type="text" id="nome" name="nome" value="Nome" required="true"/>
+                        <input type="text" id="nome" name="nome" placeholder="Nome" required="true"/>
                         <label id="nomeValidate"></label>
                         <br/>
-                        <input type="text" id="email" name="email" value="E-mail" required="true"/>
+                        <input type="text" id="email" name="email" placeholder="E-mail" required="true"/>
                         <label id="emailValidate"></label>
                         <br/>
-                        <input type="text" id="senha" name="senha" value="Senha" maxlength="10" required="true"/>
+                        <input type="text" id="senha" name="senha" placeholder="Senha" maxlength="10" required="true"/>
                         <label id="senhaValidate"></label>
                         <br/>
                         <input type="button" class="button" id="cadastrar" name="cadastrar" value="Cadastrar" required="true" />
@@ -144,17 +144,10 @@ include('php/autoload.php');
                 }
             });
             
-            $("#email").focus(function(){
-                if($(this).val()=="E-mail")
-                    $(this).val('');
-            });
             
             $("#email").blur(function(){
-                if($(this).val()==''){
-                    $(this).val('E-mail');
-                    $("#emailValidate").text('');
-                }
-                else{
+                if($(this).val()!=''){
+                 
                     if(IsEmail($(this).val())){
                     $.ajax({url: "ajax/validar.php",
                             data: {email:$(this).val(),
@@ -180,18 +173,9 @@ include('php/autoload.php');
             });
                         
             $("#senha").focus(function(){
-                if($(this).val()=="Senha")
+                if($(this).val()=="")
                 {   
                     $(this).attr("type","password");
-                    $(this).val('');
-                }
-            });
-            
-            $("#senha").blur(function(){
-                if($(this).val()=='')
-                {
-                    $(this).attr("type","text");
-                    $(this).val('Senha');
                 }
             });
             
