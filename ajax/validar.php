@@ -53,7 +53,7 @@ session_start();
                     echo "sucesso";
                 }
                 else
-                    echo "erro sql";
+                    echo "erro";
             } else
                 echo "erro";
             exit;
