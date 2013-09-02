@@ -1,6 +1,7 @@
 
 <?php
 include('php/autoload.php');
+include('php/utilitarios.php');
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -27,7 +28,7 @@ if(!empty($_POST))
             <div id="topo">
                
             </div>
-            <div id="conteudo">
+            <div id="conteudo"  class="div_transparente">
                 <div class="wrap">
                     <h1>SOU NOVO AQUI</h1>
                     <form action="" method="POST" id="formUsuario">
@@ -302,15 +303,17 @@ if(!empty($_POST))
                         success:function(data){
                             if(data==='1')
                             {
-                                alert("Cadastro Realizado com Sucesso");
-                                window.location = 'perfil.php?u=';
+                                aviso("Bem Vindo","Cadastro Realizado com Sucesso",'ui-icon-check');
+                                //window.location = 'perfil.php?u=';
                             }
                             else{
-                                alert("Erro durante o cadastro!");
+                                aviso("Erro","Erro durante o cadastro!",'ui-icon-alert');
                             }
                         }});
+                        
                   }else{
-                      alert("Preencha os campos em destaque!");
+                        aviso("Erro","Preencha os campos em destaque!",'ui-icon-alert');
+                      
                   }
             });
             

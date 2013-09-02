@@ -1,6 +1,7 @@
 
 <?php
 include('php/autoload.php');
+include('php/utilitarios.php');
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -33,34 +34,36 @@ include('php/autoload.php');
                         Uma pequena descrição sobre o trabalho....
                     </p>
                 </div>
-                <div id="direita">
-                    <fieldset id="login">
-                        <legend>Login</legend>
+                <div id="direita" >
+                    <div id="login"  class="div_transparente">
+                        <h2>Login</h2>
                         
-                        <input type="text" id="usr" name="usr" placeholder="Usuário ou E-mail"/>
+                        <input type="text" id="usr" name="usr" placeholder="Usuário ou E-mail" style="width:90%"/>
                         <br/>
-                        <input type="password" id="pass" name="pass" placeholder="Senha"/><br/>
+                        <input type="password" id="pass" name="pass" placeholder="Senha" style="width:90%"/><br/>
                         <label id="aviso"></label>
-                        <p><input type="checkbox" id="lembrar" />Lembrar Dados?</p>
-                        <a>Esqueceu sua senha?</a>
+                        <br/>
+                        <input type="checkbox" id="lembrar"/> <label for="lembrar">Continuar conectado</label><br/>
+                        <a href="#" id="esqueceu">Esqueceu sua senha?</a>
                         <br/>
                         <input type="button" class="button" id="entrar" name="entrar" value="ENTRAR" />
-                    </fieldset>
-                    <fieldset id="join">
-                        <legend>Crie sua Conta</legend>
+                    </div>
+                    <div id="join"  class="div_transparente">
+                        <h2>Crie sua Conta</h2>
                        <form action="" id="formCadastro" method="POST"> 
-                        <input type="text" id="nome" name="nome" placeholder="Nome" required="true"/>
+                        <input type="text" id="nome" name="nome" placeholder="Nome" required="true" style="width:90%"/>
                         <label id="nomeValidate"></label>
                         <br/>
-                        <input type="text" id="email" name="email" placeholder="E-mail" required="true"/>
-                        <label id="emailValidate"></label>
+                        <input type="text" id="email" name="email" placeholder="E-mail" required="true" style="width:90%"/>
+                        <span id="emailValidate" class="ui-icon ui-icon-alert"></span>
                         <br/>
-                        <input type="text" id="senha" name="senha" placeholder="Senha" maxlength="10" required="true"/>
+                        <input type="text" id="senha" name="senha" placeholder="Senha" maxlength="10" required="true" style="width:90%"/>
                         <label id="senhaValidate"></label>
+                        <br/>
                         <br/>
                         <input type="button" class="button" id="cadastrar" name="cadastrar" value="Cadastrar" required="true" />
                        </fom>
-                   </fieldset>
+                   </div>
                 </div>
                 </div>
             </div>
@@ -79,7 +82,7 @@ include('php/autoload.php');
                                 if(data=="sucesso"){
                                     window.location = 'perfil.php?u=';
                                 }else if(data=="erro"){
-                                    alert("Login ou senha Inválido");
+                                    aviso("Erro","Login ou senha Inválidos!",'ui-icon-alert');
                                 }
                             }});
         function IsEmail(email){
@@ -112,10 +115,10 @@ include('php/autoload.php');
                             async:false,
                             success:function(data){
                                 if(data=="sucesso"){
-                                    alert("BEM-VINDO");
+                                    aviso("Login","BEM VINDO",'ui-icon-key');
                                     window.location = 'perfil.php?u=';
                                 }else if(data=="erro"){
-                                    alert("Login ou senha Inválido");
+                                    aviso("Erro","Login ou senha Inválidos!",'ui-icon-alert');
                                 }
                             }}); 
             });   
@@ -149,6 +152,11 @@ include('php/autoload.php');
                 {   
                     $(this).attr("type","password");
                 }
+            });
+            
+            $("#esqueceu").click(function(){
+                
+                aviso("Aviso","Sua senha sera enviada para o e-mail cadastrado!",'ui-icon-notice');
             });
             
             //BUTTON CADASTRAR
