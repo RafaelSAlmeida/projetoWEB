@@ -31,7 +31,7 @@ include('php/autoload.php');
                     <br/>
                     <b>Resultado:</b>
                     <span id="nResultado">0</span>
-                    
+                    <input type="text" id="query"/>
                     <div class="resultados">
                         <br/><br/>
                         <div class="qResultado">
@@ -60,7 +60,12 @@ include('php/autoload.php');
               timer = setTimeout(callback, ms);
             };
           })();
-    $(document).ready(function(){    
+    $(document).ready(function(){  
+
+    $("#query").autocomplete({
+        source:"ajax/busca.php?acao=busca_topo",
+        minLength:3
+    });
     $("#q").keyup(function(){
         if($(this).val()!=''){
         delay(function(){

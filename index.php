@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <?php
 include('php/autoload.php');
 include('php/utilitarios.php');
@@ -38,9 +38,9 @@ include('php/utilitarios.php');
                     <div id="login"  class="div_transparente">
                         <h2>Login</h2>
                         
-                        <input type="text" id="usr" name="usr" placeholder="Usuário ou E-mail" style="width:90%"/>
+                        <input type="text" id="usr" name="usr" placeholder="Usuário ou E-mail" style="width:235px"/>
                         <br/>
-                        <input type="password" id="pass" name="pass" placeholder="Senha" style="width:90%"/><br/>
+                        <input type="password" id="pass" name="pass" placeholder="Senha" style="width:235px"/><br/>
                         <label id="aviso"></label>
                         <br/>
                         <input type="checkbox" id="lembrar"/> <label for="lembrar">Continuar conectado</label><br/>
@@ -51,13 +51,13 @@ include('php/utilitarios.php');
                     <div id="join"  class="div_transparente">
                         <h2>Crie sua Conta</h2>
                        <form action="" id="formCadastro" method="POST"> 
-                        <input type="text" id="nome" name="nome" placeholder="Nome" required="true" style="width:90%"/>
+                        <input type="text" id="nome" name="nome" placeholder="Nome" required="true" style="width:235px"/>
                         <label id="nomeValidate"></label>
                         <br/>
-                        <input type="text" id="email" name="email" placeholder="E-mail" required="true" style="width:90%"/>
-                        <span id="emailValidate" class="ui-icon ui-icon-alert"></span>
+                        <input type="text" id="email" name="email" placeholder="E-mail" required="true" style="width:235px;float:left;"/>
+                        <span id="emailValidate" class="ui-icon hideen" style ="width:16px;float:left;margin-top: 8px;"></span>
                         <br/>
-                        <input type="text" id="senha" name="senha" placeholder="Senha" maxlength="10" required="true" style="width:90%"/>
+                        <input type="text" id="senha" name="senha" placeholder="Senha" maxlength="10" required="true" style="width:235px"/>
                         <label id="senhaValidate"></label>
                         <br/>
                         <br/>
@@ -132,11 +132,14 @@ include('php/utilitarios.php');
                             type:"POST",
                             async:false,
                             success:function(data){
-                                if(data=='0')
-                                    $("#emailValidate").text('OK');
+                                if(data=='0'){
+                                    $("#emailValidate").removeClass("hideen");
+                                    $("#emailValidate").addClass("ui-icon-close");
+                                }
                                 else{
                                     $("#email").focus();
-                                    $("#emailValidate").text('ERRO');
+                                    $("#emailValidate").removeClass("hideen");
+                                    $("#emailValidate").addClass("ui-icon-close");
                                 }
                             }});
                     }else{
