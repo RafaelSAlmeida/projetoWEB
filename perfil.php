@@ -21,7 +21,7 @@ include('php/autoload.php');
                 <form class="form-search" action="" method="GET">
     
                         <input type="text" class="textfield" id="q" name="q" placeholder="Busca o produto aqui..." required>
-                        <button type="submit" class="submit">BUSCAR</button>
+                        
                 </form>
             <div id="usuarioTopo">
                 
@@ -38,20 +38,20 @@ include('php/autoload.php');
                     <div id="NomeUsuTopo">
                         <p id="Nome_usuario">Nome do Usuário</p>
                         <div id="LinksPerfil">
-                            <a href="">Publicações</a>
+                            <label id="num_publicacao"></label><a href="">Publicações</a>
                             <a href="">Fotos</a>
                             <a href="">Músicas</a>
                             <a href="">Vídeos</a>
                         </div>
                     </div>
                     <div id="SobreAutor">
-                        <p>Sobre o NomeAutor<p>
+                        <p id="ParAutor">Sobre o NomeAutor<p>
                         <div id="TextoSobreAutor">
-                            <span>texto sobre o autortexto sobre o autortexto sobre o autor
+                            <span id="descricao_usu" >texto sobre o autortexto sobre o autortexto sobre o autor
                                 texto sobre o autortexto sobre o autortexto sobre o autor
                                 texto sobre o autortexto sobre o autortexto sobre o autor
                                 texto sobre o autortexto sobre o autortexto sobre o autor
-                                texto sobre o autortexto sobre o autortexto sobre o autor<span>
+                                texto sobre o autortexto sobre o autortexto sobre o autor</span>
                         </div>    
                     </div>
                     <div id="PublicRecente">
@@ -86,11 +86,10 @@ include('php/autoload.php');
                             type:"POST",
                             async:false,
                             success:function(data){
-                                if(data=="sucesso"){
-                                    //window.location = 'perfil.php?u=';
-                                }else if(data=="erro"){
-                                    aviso("Erro","Login ou senha Inválidos!",'ui-icon-alert');
-                                }
+                                var obj = $.parseJSON(data);
+                                $("#Nome_usuario").text(obj.usu_nome);
+                                $("#ParAutor").text("Sobre o "+obj.usu_nome);
+                                $("#descricao_usu").text(obj.usu_descricao);
                             }});
           
           function redimensiona()
@@ -110,5 +109,31 @@ include('php/autoload.php');
             minLength:3
         });
     });
+    
+    function divClicked() {
+        var divHtml = $(this).html();
+        var editableText = $("<textarea style='width: 500px; height: 120px; border: solid; border-color:#FFFF00' />");
+        editableText.val(divHtml);
+        $(this).replaceWith(editableText);
+        editableText.focus();
+        // setup the blur event for this new textarea
+        editableText.blur(editableTextBlurred);
+    }
+    
+    function editableTextBlurred() {
+        var html = $(this).val();
+        $.ajax({url: "ajax/validar.php",
+                            data: {login:login,
+                                   html:html,
+                                   acao:"GravarDescricao"},
+                            type:"POST",
+                            async:false});
+        var viewableText = $("<div id='TextoSobreAutor'>");
+        viewableText.html(html);
+        $(this).replaceWith(viewableText);
+        // setup the click event for this new div
+        $(viewableText).click(divClicked);
+    }
+    $("#TextoSobreAutor").click(divClicked);
     </script>
 </html>
