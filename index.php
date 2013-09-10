@@ -116,7 +116,9 @@ include('php/utilitarios.php');
                             success:function(data){
                                 if(data=="sucesso"){
                                     aviso("Login","BEM VINDO",'ui-icon-key');
-                                    window.location = 'perfil.php?u=';
+                                    var url = 'perfil.php?u='+login;
+                                    location.href=url;
+                                    //window.location = 'perfil.php?u=';
                                 }else if(data=="erro"){
                                     aviso("Erro","Login ou senha Inválidos!",'ui-icon-alert');
                                 }

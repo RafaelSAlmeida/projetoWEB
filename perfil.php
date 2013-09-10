@@ -22,7 +22,6 @@ include('php/autoload.php');
     
                         <input type="text" class="textfield" id="q" name="q" placeholder="Busca o produto aqui..." required>
                         <button type="submit" class="submit">BUSCAR</button>
-                        <input type="text" id="t">
                 </form>
             <div id="usuarioTopo">
                 
@@ -32,21 +31,43 @@ include('php/autoload.php');
                 <div class="wrap">
                     <br/>
                     <br/>
-                    <b>Resultado:</b>
-                    <span id="nResultado">0</span>
-                    
-                    <div class="resultados">
-                        <br/><br/>
-                        <div class="qResultado">
-                            <img src="imagem/padrao.png" class="image"/>
-                            <div class="infoResultado">
-                                <p class="infoUsuario">Busca usuario</p>
-                                <p style="text-indent:10px;">Publicações Recentes:</p>
-                                <p class="infoPublic">Publicação 1 - Autor<span class="infoMidia">[midia]</span></p>
-                                <p class="infoPublic">Publicação 1 - Autor<span class="infoMidia">[midia]</span></p>
-                                <p class="infoPublic">Publicação 1 - Autor<span class="infoMidia">[midia]</span></p>
-                            </div>
+                    <div class="FotoPerfil">
+                        <img src="imagem/padrao.png" id="imagePerfil" onload="redimensiona()"/>
+                    </div>
+                            
+                    <div id="NomeUsuTopo">
+                        <p id="Nome_usuario">Nome do Usuário</p>
+                        <div id="LinksPerfil">
+                            <a href="">Publicações</a>
+                            <a href="">Fotos</a>
+                            <a href="">Músicas</a>
+                            <a href="">Vídeos</a>
                         </div>
+                    </div>
+                    <div id="SobreAutor">
+                        <p>Sobre o NomeAutor<p>
+                        <div id="TextoSobreAutor">
+                            <span>texto sobre o autortexto sobre o autortexto sobre o autor
+                                texto sobre o autortexto sobre o autortexto sobre o autor
+                                texto sobre o autortexto sobre o autortexto sobre o autor
+                                texto sobre o autortexto sobre o autortexto sobre o autor
+                                texto sobre o autortexto sobre o autortexto sobre o autor<span>
+                        </div>    
+                    </div>
+                    <div id="PublicRecente">
+                        <p>Publicações Recentes</p>
+                        <div id="publicR">
+                            <p>"Publicação Recente do UsárioPublicação Recente do Usário
+                                Publicação Recente do UsárioPublicação Recente do Usário"</p>
+                            <p>"Publicação Recente do UsárioPublicação Recente do Usário
+                                Publicação Recente do UsárioPublicação Recente do Usário"</p>
+                        </div>
+                    </div>
+                    <div id="Destaques">
+                            <p>DESTAQUES</p>
+                    </div>
+                    <div id="Baixo">
+                        
                     </div>
                 </div>
             </div>
@@ -56,6 +77,26 @@ include('php/autoload.php');
         
     </body>
     <script type="text/javascript">
+          var variaveis=location.search.split("?");
+          var quebra = variaveis[1].split("=");
+          var login = quebra[1];
+          $.ajax({url: "ajax/validar.php",
+                            data: {login:login,
+                                   acao:"CarregarDados"},
+                            type:"POST",
+                            async:false,
+                            success:function(data){
+                                if(data=="sucesso"){
+                                    //window.location = 'perfil.php?u=';
+                                }else if(data=="erro"){
+                                    aviso("Erro","Login ou senha Inválidos!",'ui-icon-alert');
+                                }
+                            }});
+          
+          function redimensiona()
+            {
+                document.images['imagePerfil'].width = 100;
+            }
           var delay = (function(){
             var timer = 0;
             return function(callback, ms){
@@ -64,19 +105,9 @@ include('php/autoload.php');
             };
           })();
     $(document).ready(function(){    
-    $("#q").keyup(function(){
-        var resultado;
-        if($(this).val()!=''){
-        delay(function(){
-             $('#t').autocomplete(
-                {
-                 source: "ajax/busca.php?acaoGET=busca_topo"
-                });
-      }, 1000 );
-      resultado = "";
-      }
-          
-           
+        $("#q").autocomplete({
+            source:"ajax/busca.php?acao=busca_topo",
+            minLength:3
         });
     });
     </script>
