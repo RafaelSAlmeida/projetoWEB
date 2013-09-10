@@ -188,3 +188,8 @@ a:active {
     right: 30%;
     padding-left: 30px;
 }
+.inputSearch{
+    background:url('../imagem/search-icon-hi.png') no-repeat;
+    background-size:16px 16px;
+    background-position: right;
+}
