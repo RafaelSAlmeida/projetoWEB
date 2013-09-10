@@ -61,6 +61,13 @@ session_start();
             if($_COOKIE['usuario']){
                 echo "sucesso";
             }
+        }else if($acao == 'CarregarDados'){
+            $con = new Conexao();
+            
+            $login = $_POST['login'];
+            $sql = " SELECT * FROM usuario WHERE usu_login = '$login' ";
+            $con->execute_query($sql);
+            
         }
     }else{
         header('Location:../index.php');

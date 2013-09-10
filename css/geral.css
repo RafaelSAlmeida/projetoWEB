@@ -149,8 +149,42 @@ a:active {
     text-decoration: none;
     color:black;
 }
-.inputSearch{
-    background:url('../imagem/search-icon-hi.png') no-repeat;
-    background-size:16px 16px;
-    background-position: right;
+.FotoPerfil{
+    float: left;
+}
+#LinksPerfil a{
+    float:left;
+    right:55%;
+    border-right: solid;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+#NomeUsuTopo{
+    float:left;
+    position: absolute;
+    right:55%;
+}
+#SobreAutor{
+    top:30%;
+    position: absolute;
+}
+#TextoSobreAutor{
+    width: 500px;
+    height: 120px;
+    border: solid;
+}
+#PublicRecente{
+    position: absolute;
+    bottom: 35%;
+}
+#publicR{
+    position: absolute;
+    width: 500px;
+}
+#Destaques{
+    height: 80%;
+    border-left: solid;
+    position: absolute;
+    right: 30%;
+    padding-left: 30px;
 }
