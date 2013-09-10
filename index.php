@@ -10,7 +10,7 @@ include('php/utilitarios.php');
 <html>
     <head>
         <title>Página Inicial</title>
-        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
         
         <link rel="stylesheet" type="text/css" href="css/geral.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.9.2.custom.css" />
@@ -21,6 +21,10 @@ include('php/utilitarios.php');
         
         <div id="geral">
             <div id="topo">
+                <form class="form-search" action="perfil.php" method="GET">
+                    <input type="text" class="textfield inputSearch" id="q" name="q" placeholder="Busca o usuário aqui..." required >
+                        
+                </form>
             </div>
             <div id="conteudo">
                 <div class="wrap">
@@ -55,7 +59,7 @@ include('php/utilitarios.php');
                         <label id="nomeValidate"></label>
                         <br/>
                         <input type="text" id="email" name="email" placeholder="E-mail" required="true" style="width:235px;float:left;"/>
-                        <span id="emailValidate" class="ui-icon hideen" style ="width:16px;float:left;margin-top: 8px;"></span>
+                        <span id="emailValidate" class="none" style ="width:16px;float:left;margin-top: 8px;"></span>
                         <br/>
                         <input type="text" id="senha" name="senha" placeholder="Senha" maxlength="10" required="true" style="width:235px"/>
                         <label id="senhaValidate"></label>
@@ -96,6 +100,10 @@ include('php/utilitarios.php');
         $(document).ready(function(){
            $(".button").button();
             
+            $("#q").autocomplete({
+                source:"ajax/busca.php?acao=busca_topo",
+                minLength:3
+            });
             $("#entrar").click(function(){
                 var login = $("#usr").val();
                 var email = login.indexOf('@');
@@ -123,6 +131,9 @@ include('php/utilitarios.php');
                             }}); 
             });   
             $("#email").blur(function(){
+                
+                $("#emailValidate").removeClass("ui-icon ui-icon-check");
+                $("#emailValidate").removeClass("ui-icon ui-icon-close");
                 if($(this).val()!=''){
                  
                     if(IsEmail($(this).val())){
@@ -133,18 +144,21 @@ include('php/utilitarios.php');
                             async:false,
                             success:function(data){
                                 if(data=='0'){
-                                    $("#emailValidate").removeClass("hideen");
-                                    $("#emailValidate").addClass("ui-icon-close");
+                                    $("#emailValidate").removeClass("none");
+                                    $("#emailValidate").removeClass("ui-icon ui-icon-close");
+                                    $("#emailValidate").addClass("ui-icon ui-icon-check");
                                 }
                                 else{
                                     $("#email").focus();
-                                    $("#emailValidate").removeClass("hideen");
-                                    $("#emailValidate").addClass("ui-icon-close");
+                                    $("#emailValidate").removeClass("none");
+                                    $("#emailValidate").removeClass("ui-icon ui-icon-check");
+                                    $("#emailValidate").addClass("ui-icon ui-icon-close");
                                 }
                             }});
                     }else{
                         $("#email").focus();
-                        $("#emailValidate").text('ERRO');
+                        $("#emailValidate").removeClass("ui-icon ui-icon-check");
+                        $("#emailValidate").addClass("ui-icon ui-icon-close");
                     }       
 
             }
@@ -159,7 +173,7 @@ include('php/utilitarios.php');
             
             $("#esqueceu").click(function(){
                 
-                aviso("Aviso","Sua senha sera enviada para o e-mail cadastrado!",'ui-icon-notice');
+                aviso("Aviso","Sua senha sera enviada para o e-mail cadastrado!<input type='text'/>",'ui-icon-notice');
             });
             
             //BUTTON CADASTRAR

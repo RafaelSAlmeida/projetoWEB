@@ -1,23 +1,19 @@
 <?php
-    include("../php/Conexao.php");
+    include("../php/autoload.php");
     
     if(!empty($_POST)){
         $acao = $_POST['acao'];
        if($acao == 'inserir_usuario'){
-        $nome = $_POST['nome'];
-        $sobrenome = $_POST['sobrenome'];
-        $email = $_POST['email'];
-        $senha = md5($_POST['senha']);
-        $data_nascimento = $_POST['ano'].'-'.$_POST['mes'].'-'.$_POST['dia'];
+        $usu = new Usuario();
+        $usu->usu_nome = $_POST['nome'];
+        $usu->usu_sobrenome = $_POST['sobrenome'];
+        $usu->usu_email = $_POST['email'];
+        $usu->usu_senha = md5($_POST['senha']);
+        $usu->usu_data_nascimento = $_POST['ano'].'-'.$_POST['mes'].'-'.$_POST['dia'];
+        $usu->usu_login = $_POST['usuario'];
         
-        $usuario = $_POST['usuario'];
-        
-        $con = new Conexao();
-        
-        $sql = "INSERT INTO usuario(usu_nome, usu_sobrenome, usu_login, usu_data_nascimento, usu_email, usu_senha) VALUES
-                            ('{$nome}','{$sobrenome}','{$usuario}','{$data_nascimento}','{$email}','{$senha}')";
-        $con->execute_query($sql);
-        if($con->resultado)
+        $usu->insereUsuario();
+        if($usu->conn->resultado)
             echo '1';
         else
             echo '0';

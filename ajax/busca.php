@@ -1,17 +1,14 @@
 <?php
- include("../php/Conexao.php");
+ include("../php/autoload.php");
     if(!empty($_POST)){
         $acao = $_POST['acao'];
         
        if($acao == 'busca_usuario'){
            $q = $_POST['q'];
-           $con = new Conexao();
-           $sql = "SELECT * 
-                    FROM USUARIO
-                    WHERE concat(usu_nome,' ',usu_sobrenome) like '%{$q}%'";
-           $con->execute_query($sql);
+           $usu = new Usuario();
+           $usu->carregaUsuario("","concat(usu_nome,' ',usu_sobrenome) like '%{$q}%'");
            $rows = array();
-            while($r = mysql_fetch_assoc($con->resultado)) {
+            while($r = mysql_fetch_assoc($usu->conn->resultado)) {
               $rows['object_name'][] = $r;
             }
 
@@ -23,14 +20,12 @@
         $acaoGET = $_GET['acao'];
         if($acaoGET=="busca_topo"){
          $q = $_GET['term'];
-         $con = new Conexao();
-         $sql = "SELECT concat(usu_nome,' ',usu_sobrenome) nome
-                  FROM USUARIO
-                  WHERE concat(usu_nome,' ',usu_sobrenome) like '%{$q}%'";
-         $con->execute_query($sql);
+         $usu = new Usuario();
+         $usu->carregaUsuario("usu_login nome","concat(usu_nome,' ',usu_sobrenome) like '%{$q}%' OR usu_login like '%{$q}%'");
+         
          $json = '[';
           $first = true;
-          while($row = mysql_fetch_object($con->resultado))
+          while($row = mysql_fetch_object($usu->conn->resultado))
           {
               if (!$first) { $json .=  ','; } else { $first = false; }
               $json .= '{"value":"'.utf8_encode($row->nome).'"}';
@@ -40,8 +35,4 @@
           exit;
        }
      }
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 ?>

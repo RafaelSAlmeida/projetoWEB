@@ -36,7 +36,7 @@ if(!empty($_POST))
                         <input type="text" id="nome" name="nome" <?php if($nome) echo 'value="'.$nome.'"'; else echo 'placeholder="Nome"';?>" />
                         <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome" /><br/>
                         <input type="text" id="usuario" name="usuario" placeholder="Escolha seu usuário" />
-                        <label id="usuarioValidate"></label><br/><br/>
+                        <label id="usuarioValidate" class="none" style ="width:16px;display:inline-block;margin-top: 8px;"></label><br/><br/>
                         <label>Data de Nascimento:</label><br/>
                         <select id="dia" name="dia" >
                             <option value="">DIA</option>
@@ -63,12 +63,12 @@ if(!empty($_POST))
                         </select>
                         <br/><br/>
                         <input type="text" id="email" name="email" <?php if($email) echo 'value="'.$email.'"'; else echo 'placeholder="E-mail"';?> />
-                        <label id="emailValidate"></label><br/>
+                        <label id="emailValidate" class="none" style ="width:16px;display:inline-block;margin-top: 8px;"></label><br/>
                         <input type="text" id="confEmail" name="confEmail" placeholder="Confirmação de E-mail" />
-                        <label id="confEmailValidate"></label><br/><br/>
+                        <label id="confEmailValidate" class="none" style ="width:16px;display:inline-block;margin-top: 8px;"></label><br/>
                         <input type="<?php if($senha) echo "password"; else echo "text";?>" id="senha" name="senha" <?php if($senha) echo 'value="'.$senha.'"'; else echo 'placeholder="Senha"';?>" /><br/>
                         <input type="text" id="confSenha" name="confSenha" placeholder="Confirmação de Senha" />
-                        <label id="confSenhaValidate"></label><br/><br/>
+                        <label id="confSenhaValidate" class="none" style ="width:16px;display:inline-block;margin-top: 8px;"></label><br/><br/>
                         <input type="button" class="button" id="cadastrar" name="cadastrar" value="Criar Conta" /><br/>
                     </form>
                 </div>
@@ -183,19 +183,24 @@ if(!empty($_POST))
                             async:false,
                             success:function(data){
                                 if(data==='0')
-                                    $("#emailValidate").text('OK');
+                                {
+                                    $("#emailValidate").removeClass("none");
+                                    $("#emailValidate").removeClass("ui-icon ui-icon-close");
+                                    $("#emailValidate").addClass("ui-icon ui-icon-check");
+                                }
                                 else{
-                                    $("#email").val("E-mail");
                                     $("#email").focus();
-                                    $("#emailValidate").text('ERRO');
+                                    $("#emailValidate").removeClass("none");
+                                    $("#emailValidate").removeClass("ui-icon ui-icon-check");
+                                    $("#emailValidate").addClass("ui-icon ui-icon-close");
                                 }
                             }});
                         
                         $(this).removeAttr("class");
                     }else{
-                        $("#email").val("E-mail");
                         $("#email").focus();
-                        $("#emailValidate").text('ERRO');
+                        $("#emailValidate").removeClass("ui-icon ui-icon-check");
+                        $("#emailValidate").addClass("ui-icon ui-icon-close");
                     }       
 
             }
@@ -229,12 +234,15 @@ if(!empty($_POST))
                 {
                     if(!confirmaSenha($("#senha").val(),$("#confSenha").val())){
                         
-                        $("#confSenhaValidate").text('ERRO');
+                        $("#confSenhaValidate").removeClass("none");
+                        $("#confSenhaValidate").removeClass("ui-icon ui-icon-check");
+                        $("#confSenhaValidate").addClass("ui-icon ui-icon-close");
                         $("#confSenha").focus();
                         $("#confSenha").val('');
                     }else{
-                        $(this).removeAttr("class");                        
-                        $("#confSenhaValidate").text('');
+                        $(this).removeAttr("class");    
+                        $("#confSenhaValidate").removeClass("ui-icon ui-icon-close");
+                        $("#confSenhaValidate").addClass("ui-icon ui-icon-check");
                     }
                 }
             });
@@ -245,12 +253,15 @@ if(!empty($_POST))
                 
                     if(!confirmaEmail($("#email").val(),$("#confEmail").val()))
                     {
-                        $("#confEmailValidate").text('ERRO');
+                        $("#confEmailValidate").removeClass("none");
+                        $("#confEmailValidate").removeClass("ui-icon ui-icon-check");
+                        $("#confEmailValidate").addClass("ui-icon ui-icon-close");
                         $("#confEmail").focus();
                         $("#confEmail").val('');
                     }else{
                         $(this).removeAttr("class");
-                        $("#confEmailValidate").text('');
+                        $("#confEmailValidate").addClass("none");
+                        $("#confEmailValidate").removeClass("ui-icon ui-icon-close");
                     }
                 
             });
@@ -266,13 +277,17 @@ if(!empty($_POST))
                             async:false,
                             success:function(data){
                                 if(data==='0'){
-                                    
-                                    $("#usuarioValidate").text('OK');
-                                     $("#usuario").removeAttr("class");                    
+                                                                    
+                                    $("#usuario").removeAttr("class"); 
+                                    $("#usuarioValidate").removeClass("none");
+                                    $("#usuarioValidate").removeClass("ui-icon ui-icon-close");                                     
+                                    $("#usuarioValidate").addClass("ui-icon ui-icon-check");
                                 }
                                 else{
                                    $("#usuario").focus();
-                                    $("#usuarioValidate").text('ERRO');
+                                   $("#usuarioValidate").removeClass("none");
+                                   $("#usuarioValidate").removeClass("ui-icon ui-icon-check");
+                                   $("#usuarioValidate").addClass("ui-icon ui-icon-close");
                                 }
                             }});      
 
@@ -289,6 +304,11 @@ if(!empty($_POST))
                 }
             });
             $("#ano").blur(function(){
+                if($(this).val()!=""){
+                    $(this).removeAttr("class");
+                }
+            });
+            $("#sobrenome").blur(function(){
                 if($(this).val()!=""){
                     $(this).removeAttr("class");
                 }

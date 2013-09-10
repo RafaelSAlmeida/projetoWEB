@@ -1,4 +1,5 @@
 <?php
+include("../php/Conexao.php");
 class Usuario{
     
     /*
@@ -88,6 +89,20 @@ class Usuario{
     }
     
     function insereUsuario(){
+        $sql = "INSERT INTO usuario(usu_nome, usu_sobrenome, usu_login, usu_data_nascimento, usu_email, usu_senha) VALUES
+                            ('{$this->usu_nome}','{$this->usu_sobrenome}','{$this->usu_login}','{$this->usu_data_nascimento}','{$this->usu_email}','{$this->usu_senha}')";
+        $this->conn->execute_query($sql);
+        
+    }
+    
+    function carregaUsuario($PARAM='',$WHERE='',$ORDERBY='',$GROUPBY=''){
+        $WHERE = ($WHERE!='')?'WHERE '.$WHERE:'';
+        $ORDERBY = ($ORDERBY!='')?'ORDER BY '.$ORDERBY:'';
+        $GROUPBY = ($GROUPBY!='')?'GROUP BY '.$GROUPBY:'';
+        $PARAM = ($PARAM!='')?$PARAM:'*';
+        $sql = "SELECT {$PARAM} FROM usuario {$WHERE} {$GROUPBY} {$ORDERBY}";
+        $this->conn->execute_query($sql);
+          
         
     }
     

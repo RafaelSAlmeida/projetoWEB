@@ -21,8 +21,8 @@ include('php/autoload.php');
             <div id="topo">
                 <form class="form-search" action="" method="GET">
     
-                        <input type="text" class="textfield" id="q" name="q" placeholder="Busca o produto aqui..." required>
-                        <button type="submit" class="submit">BUSCAR</button>
+                        <input type="text" class="textfield inputSearch" id="q" name="q" placeholder="Busca o usuário aqui..." required>
+                        
                 </form>
             </div>
             <div id="conteudo">
@@ -31,7 +31,6 @@ include('php/autoload.php');
                     <br/>
                     <b>Resultado:</b>
                     <span id="nResultado">0</span>
-                    <input type="text" id="query"/>
                     <div class="resultados">
                         <br/><br/>
                         <div class="qResultado">
@@ -62,10 +61,6 @@ include('php/autoload.php');
           })();
     $(document).ready(function(){  
 
-    $("#query").autocomplete({
-        source:"ajax/busca.php?acao=busca_topo",
-        minLength:3
-    });
     $("#q").keyup(function(){
         if($(this).val()!=''){
         delay(function(){
