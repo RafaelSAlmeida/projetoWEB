@@ -1,5 +1,5 @@
 <?php
-include("../php/Conexao.php");
+
 class Usuario{
     
     /*

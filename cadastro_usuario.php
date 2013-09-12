@@ -324,7 +324,7 @@ if(!empty($_POST))
                             if(data==='1')
                             {
                                 aviso("Bem Vindo","Cadastro Realizado com Sucesso",'ui-icon-check');
-                                //window.location = 'perfil.php?u=';
+                                window.location = 'perfil.php?u=';
                             }
                             else{
                                 aviso("Erro","Erro durante o cadastro!",'ui-icon-alert');
