@@ -18,7 +18,7 @@
     }
      if(!empty($_GET)){
         $acaoGET = $_GET['acao'];
-        if($acaoGET=="busca_topo"){
+        if($acaoGET=="buscainsumo"){
          $q = $_GET['term'];
          $usu = new Usuario();
          $usu->carregaUsuario("usu_login nome","concat(usu_nome,' ',usu_sobrenome) like '%{$q}%' OR usu_login like '%{$q}%'");

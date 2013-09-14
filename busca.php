@@ -24,6 +24,11 @@ include('php/autoload.php');
                         <input type="text" class="textfield inputSearch" id="q" name="q" placeholder="Busca o usuário aqui..." required>
                         
                 </form>
+                <div id="usuarioTopo">
+                <img src="imagem/padrao.png" id="imagePerfilTopo" onload="redimensionaTopo()"/>
+                <label id="usuario_topo"></label>
+                </div>
+            </div>
             </div>
             <div id="conteudo">
                 <div class="wrap">
@@ -95,5 +100,10 @@ include('php/autoload.php');
            
         });
     });
+    
+    function redimensionaTopo()
+            {
+                document.images['imagePerfilTopo'].width = 50;
+            }
     </script>
 </html>

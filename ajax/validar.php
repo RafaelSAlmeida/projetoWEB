@@ -80,6 +80,14 @@ session_start();
             $sql = " UPDATE usuario SET usu_descricao = '$descricao' WHERE usu_login = '$login' ";
             $con->execute_query($sql);
             
+        }else if($acao == "QuebraSessao"){
+            if($_COOKIE['usuario']){
+                setcookie("usuario");
+                session_unset();
+            }
+            else{
+                session_unset();
+            }
         }
     }else{
         header('Location:../index.php');
