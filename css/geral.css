@@ -194,6 +194,46 @@ a:active {
     background-position: right;
 }
 
+.bubble 
+{
+position: relative;
+width: 450px;
+height: 150px;
+padding: 0px;
+background: #FFFFFF;
+-webkit-border-radius: 0px;
+-moz-border-radius: 0px;
+border-radius: 0px;
+border: #ddd solid 2px;
+}
+
+.bubble:after 
+{
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 0 11px 13px;
+border-color: #FFFFFF transparent;
+display: block;
+width: 0;
+z-index: 1;
+top: -13px;
+left: 17px;
+}
+
+.bubble:before 
+{
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 0 12px 14px;
+border-color: #ddd transparent;
+display: block;
+width: 0;
+z-index: 0;
+top: -16px;
+left: 16px;
+}
 #usuarioTopo{
     position: fixed;
     display: block;
