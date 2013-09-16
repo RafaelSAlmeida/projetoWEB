@@ -1,5 +1,5 @@
 <?php
-include("../php/Conexao.php");
+include("../php/autoload.php");
 session_start();
 
     if(!empty($_POST)){
@@ -62,12 +62,32 @@ session_start();
                 echo "sucesso";
             }
         }else if($acao == 'CarregarDados'){
+            //$con = new Conexao();
+            
+            $login = $_POST['login'];
+            $usu = new Usuario();
+            $usu->carregaUsuario(""," usu_login = '{$login}' ");
+            //$sql = " SELECT * FROM usuario WHERE usu_login = '$login' ";
+            //$con->execute_query($sql);
+            $Usuario = mysql_fetch_object($usu->conn->resultado);
+            
+            echo json_encode($Usuario);
+        }else if($acao == "GravarDescricao"){
             $con = new Conexao();
             
             $login = $_POST['login'];
-            $sql = " SELECT * FROM usuario WHERE usu_login = '$login' ";
+            $descricao = $_POST['html'];
+            $sql = " UPDATE usuario SET usu_descricao = '$descricao' WHERE usu_login = '$login' ";
             $con->execute_query($sql);
             
+        }else if($acao == "QuebraSessao"){
+            if($_COOKIE['usuario']){
+                setcookie("usuario");
+                session_unset();
+            }
+            else{
+                session_unset();
+            }
         }
     }else{
         header('Location:../index.php');

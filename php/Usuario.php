@@ -102,6 +102,7 @@ class Usuario{
         $PARAM = ($PARAM!='')?$PARAM:'*';
         $sql = "SELECT {$PARAM} FROM usuario {$WHERE} {$GROUPBY} {$ORDERBY}";
         $this->conn->execute_query($sql);
+        
           
         
     }
