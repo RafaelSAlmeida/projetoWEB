@@ -15,6 +15,22 @@ include('php/autoload.php');
         <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.js"></script>
         <script type="text/javascript" src="js/jquery.form.js"></script>
+        <style type="text/css">
+          .ui-progressbar {
+            position: relative;
+            width: 79px;
+            height: 28px;
+            float: right;
+            display:none;
+          }
+          .progress-label {
+            position: absolute;
+            text-align: center;
+            top: 4px;
+            font-weight: bold;
+            text-shadow: 1px 1px 0 #fff;
+          }
+        </style>
     </head>
     <body>
         <div id="geral">
@@ -26,10 +42,10 @@ include('php/autoload.php');
                 </form>
             <div id="usuarioTopo">
                 <img src="imagem/padrao.png" id="imagePerfilTopo" onload="redimensionaTopo()"/>
-                <label id="usuario_topo"></label>
+                <span id="usuario_topo"></span>
                 <div id="myjquerymenu" class="jquerycssmenu">
                     <ul>
-                        <li><a href="#">Configurações</a>
+                        <li><a href="#"><img src="imagem/engrenagem.jpg" width="30px"/></a>
                           <ul>
                               <li id="Sair"><a href="ajax/validar.php?acao=QuebraSessao">Sair</a></li>
                           </ul>
@@ -38,21 +54,22 @@ include('php/autoload.php');
                 </div>
             </div>
             </div>
-            <div id="conteudo">
-                <div class="wrap">
+            <div id="conteudo" style="background-image: url('imagem/imagem-perfil4.jpg'); overflow: auto;">
+                <div class="wrap" style="background-color: #FFFFFF;">
                     <br/>
                     <br/>
                     <div class="FotoPerfil">
                         <img src="imagem/padrao.png" id="imagePerfil" onload="redimensiona()"/>
-                        <form method="POST">
-                            <input type="file" class="none" name="ImagemPerfil" />
-                            <div class="progress">
-                            <div class="bar"></div >
-                            <div class="percent" style="display: none">0%</div >
+                        <form id="formulario" method="post" enctype="multipart/form-data" action="ajax/upload.php">
+                            <input type="file" id="imag" name="imag" style="display:none;"/>
+                            <input type="button" class="button" value="Salvar" id="salvar"/>
                         </form>
-                    </div>
+                
+                        <div id="progress" style="display: none;">
+                            <div id="bar"></div>
+                            <div id="percent">0%</div>
+                        </div>
 
-                    <div id="status"></div>
                     </div>
                             
                     <div id="NomeUsuTopo">
@@ -97,6 +114,7 @@ include('php/autoload.php');
         
     </body>
     <script type="text/javascript">
+                
           var variaveis=location.search.split("?");
           var quebra = variaveis[1].split("=");
           var login = quebra[1];
@@ -132,9 +150,38 @@ include('php/autoload.php');
         
     $(document).ready(function(){
         $("#imagePerfil").click(function(){
-            $(".none").click();
-            $(".percent").css("display","block");
+            $("#imag").click();
+            var progressbar = $("#progressbar"),
+            progressLabel = $(".progress-label");
+ 
+            progressbar.progressbar({
+                value: false,
+                change: function() {
+                    progressLabel.text( progressbar.progressbar( "value" ) + "%" );
+                },
+                complete: function() {
+                    progressLabel.text( "Publicado" );
+                }
+            });
+            $('#imag').live('change', function() {
+                $("#salvar").click(function(){
+                    $(this).hide();
+                    $(".ui-progressbar").show();
+                    $('#formulario').ajaxForm({
+                        uploadProgress: function(event, position, total, percentComplete) { //on progress
+
+                                    progressbar.progressbar( "value", percentComplete );
+
+                         },
+                        complete: function(response) { // on complete
+                            alert(response.responseText);
+                        }
+                     }).submit(); 
+                });
+            });
+            
         });
+        
         $("#q").autocomplete({
             source:"ajax/busca.php?acao=busca_topo",
             minLength:3
@@ -167,41 +214,8 @@ include('php/autoload.php');
     }
     $("#TextoSobreAutor").click(divClicked);
     
-    (function() {
-    
-        var bar = $('.bar');
-        var percent = $('.percent');
-        var status = $('#status');
-
-        $('form').ajaxForm({
-            beforeSend: function() {
-                status.empty();
-                var percentVal = '0%';
-                bar.width(percentVal)
-                percent.html(percentVal);
-            },
-            uploadProgress: function(event, position, total, percentComplete) {
-                var percentVal = percentComplete + '%';
-                bar.width(percentVal)
-                percent.html(percentVal);
-                        //console.log(percentVal, position, total);
-            },
-            success: function() {
-                var percentVal = '100%';
-                bar.width(percentVal)
-                percent.html(percentVal);
-            },
-                complete: function(xhr) {
-                        status.html(xhr.responseText);
-                        percent.css("display","none");
-                }
-        }); 
-
-    })();
-    
-    //Jquery Menu!
+    //Jquery Menu
     var arrowimages={down:['downarrowclass', 'css/images/arrow-down.gif', 25]}
-
     var jquerycssmenu={
 
     fadesettings: {overduration: 350, outduration: 100}, //duration of fade in/ out animation, in milliseconds
@@ -241,5 +255,6 @@ include('php/autoload.php');
 
     //build menu with ID="myjquerymenu" on page:
     jquerycssmenu.buildmenu("myjquerymenu", arrowimages)
+     
     </script>
 </html>

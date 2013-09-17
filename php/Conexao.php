@@ -3,7 +3,7 @@ class Conexao {
 
     private $host = "localhost"; 
     private $user = "root"; 
-    private $senha = "root"; 
+    private $senha = ""; 
     private $dbase = "projeto_web"; 
 
     public $query;
