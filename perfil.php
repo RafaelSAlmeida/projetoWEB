@@ -15,13 +15,22 @@ include('php/autoload.php');
         <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.js"></script>
         <script type="text/javascript" src="js/jquery.form.js"></script>
-        <style>
-  .thumb {
-    height: 75px;
-    border: 1px solid #000;
-    margin: 10px 5px 0 0;
-  }
-</style>
+        <style type="text/css">
+          .ui-progressbar {
+            position: relative;
+            width: 79px;
+            height: 28px;
+            float: right;
+            display:none;
+          }
+          .progress-label {
+            position: absolute;
+            text-align: center;
+            top: 4px;
+            font-weight: bold;
+            text-shadow: 1px 1px 0 #fff;
+          }
+        </style>
     </head>
     <body>
         <div id="geral">
@@ -33,10 +42,10 @@ include('php/autoload.php');
                 </form>
             <div id="usuarioTopo">
                 <img src="imagem/padrao.png" id="imagePerfilTopo" onload="redimensionaTopo()"/>
-                <label id="usuario_topo"></label>
+                <span id="usuario_topo"></span>
                 <div id="myjquerymenu" class="jquerycssmenu">
                     <ul>
-                        <li><a href="#">Configurações</a>
+                        <li><a href="#"><img src="imagem/engrenagem.jpg" width="30px"/></a>
                           <ul>
                               <li id="Sair"><a href="ajax/validar.php?acao=QuebraSessao">Sair</a></li>
                           </ul>
@@ -45,21 +54,22 @@ include('php/autoload.php');
                 </div>
             </div>
             </div>
-            <div id="conteudo">
-                <div class="wrap">
+            <div id="conteudo" style="background-image: url('imagem/imagem-perfil4.jpg'); overflow: auto;">
+                <div class="wrap" style="background-color: #FFFFFF;">
                     <br/>
                     <br/>
                     <div class="FotoPerfil">
                         <img src="imagem/padrao.png" id="imagePerfil" onload="redimensiona()"/>
                         <form id="formulario" method="post" enctype="multipart/form-data" action="ajax/upload.php">
-                        <input type="file" class="none" name="imag" />
+                            <input type="file" id="imag" name="imag" style="display:none;"/>
+                            <input type="button" class="button" value="Salvar" id="salvar"/>
                         </form>
-                        <div id="visualizar"></div>
-
-                        <div id="progress">
+                
+                        <div id="progress" style="display: none;">
                             <div id="bar"></div>
                             <div id="percent">0%</div>
                         </div>
+
                     </div>
                             
                     <div id="NomeUsuTopo">
@@ -100,52 +110,11 @@ include('php/autoload.php');
             </div>
         </div>
         
-        <input type="file" id="files" name="files[]" multiple />
-        <output id="list"></output>
+        
         
     </body>
-    <script>
-  function handleFileSelect(evt) {
-    var files = evt.target.files; // FileList object
-
-    // Loop through the FileList and render image files as thumbnails.
-    for (var i = 0, f; f = files[i]; i++) {
-
-      // Only process image files.
-      if (!f.type.match('image.*')) {
-        continue;
-      }
-
-      var reader = new FileReader();
-
-      // Closure to capture the file information.
-      reader.onload = (function(theFile) {
-        return function(e) {
-          // Render thumbnail.
-          var span = document.createElement('span');
-          span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                            '" title="', escape(theFile.name), '"/>'].join('');
-          document.getElementById('list').insertBefore(span, null);
-        };
-      })(f);
-
-      // Read in the image file as a data URL.
-      reader.readAsDataURL(f);
-    }
-  }
-
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
-</script>
     <script type="text/javascript">
-          
-         /* #imagem Ã© o id do input, ao alterar o conteudo do input execurarÃ¡ a funÃ§Ã£o baixo */
-         $('#imag').on('change',function(){
-             $('#visualizar').html('<img src="ajax-loader.gif" alt="Enviando..."/> Enviando...');
-            /* Efetua o Upload sem dar refresh na pagina */          
-            $('#formulario').ajaxForm({
-                target:'#visualizar' // o callback serÃ¡ no elemento com o id #visualizar
-             }).submit();
-            });
+                
           var variaveis=location.search.split("?");
           var quebra = variaveis[1].split("=");
           var login = quebra[1];
@@ -181,9 +150,38 @@ include('php/autoload.php');
         
     $(document).ready(function(){
         $("#imagePerfil").click(function(){
-            $(".none").click();
-            //$("#progress").css("display","block");
+            $("#imag").click();
+            var progressbar = $("#progressbar"),
+            progressLabel = $(".progress-label");
+ 
+            progressbar.progressbar({
+                value: false,
+                change: function() {
+                    progressLabel.text( progressbar.progressbar( "value" ) + "%" );
+                },
+                complete: function() {
+                    progressLabel.text( "Publicado" );
+                }
+            });
+            $('#imag').live('change', function() {
+                $("#salvar").click(function(){
+                    $(this).hide();
+                    $(".ui-progressbar").show();
+                    $('#formulario').ajaxForm({
+                        uploadProgress: function(event, position, total, percentComplete) { //on progress
+
+                                    progressbar.progressbar( "value", percentComplete );
+
+                         },
+                        complete: function(response) { // on complete
+                            alert(response.responseText);
+                        }
+                     }).submit(); 
+                });
+            });
+            
         });
+        
         $("#q").autocomplete({
             source:"ajax/busca.php?acao=busca_topo",
             minLength:3
@@ -216,9 +214,8 @@ include('php/autoload.php');
     }
     $("#TextoSobreAutor").click(divClicked);
     
-    //Jquery Menu!
+    //Jquery Menu
     var arrowimages={down:['downarrowclass', 'css/images/arrow-down.gif', 25]}
-
     var jquerycssmenu={
 
     fadesettings: {overduration: 350, outduration: 100}, //duration of fade in/ out animation, in milliseconds

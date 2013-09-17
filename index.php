@@ -26,16 +26,15 @@ include('php/utilitarios.php');
                         
                 </form>
             </div>
-            <div id="conteudo">
+            <div id="CantoEsq"></div>
+            <div id="conteudo" style="background-image: url('imagem/background.jpg');">
                 <div class="wrap">
-                <div id="esquerda">
+                    <div id="esquerda">
                     <h1>Bem vindo</h1>
-                    <p>Uma pequena descrição sobre o trabalho....
-                        Uma pequena descrição sobre o trabalho....
-                        Uma pequena descrição sobre o trabalho....
-                        Uma pequena descrição sobre o trabalho....
-                        Uma pequena descrição sobre o trabalho....
-                        Uma pequena descrição sobre o trabalho....
+                    <p>Esta página Web tem por objetivo o desenvolvimento de uma rede social
+                        como forma de aplicar os conceitos e conhecimentos adquiridos nas aulas práticas
+                        de desenvolvimento Web, demonstrando de maneira visual as técnicas adquiridas
+                        em sala de aula, e da imaginação de seus desenvolvedores.
                     </p>
                 </div>
                 <div id="direita" >
