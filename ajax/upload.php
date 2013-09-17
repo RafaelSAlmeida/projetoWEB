@@ -25,7 +25,7 @@
                 $tmp = $_FILES['imag']['tmp_name']; //caminho temporÃ¡rio da imagem
                 /* se enviar a foto, insere o nome da foto no banco de dados */
                 if(move_uploaded_file($tmp,$pasta.$nome_atual)){
-                    echo "<img src='imagem/".$nome_atual."' id='previsualizar'>"; //imprime a foto na tela
+                    echo "sucesso"; //imprime a foto na tela
                 }else{
                     echo "Falha ao enviar";
                 }
