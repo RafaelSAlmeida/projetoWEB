@@ -15,6 +15,13 @@ include('php/autoload.php');
         <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.js"></script>
         <script type="text/javascript" src="js/jquery.form.js"></script>
+        <style>
+  .thumb {
+    height: 75px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }
+</style>
     </head>
     <body>
         <div id="geral">
@@ -44,15 +51,15 @@ include('php/autoload.php');
                     <br/>
                     <div class="FotoPerfil">
                         <img src="imagem/padrao.png" id="imagePerfil" onload="redimensiona()"/>
-                        <form method="POST">
-                            <input type="file" class="none" name="ImagemPerfil" />
-                            <div class="progress">
-                            <div class="bar"></div >
-                            <div class="percent" style="display: none">0%</div >
+                        <form id="formulario" method="post" enctype="multipart/form-data" action="ajax/upload.php">
+                        <input type="file" class="none" name="imag" />
                         </form>
-                    </div>
+                        <div id="visualizar"></div>
 
-                    <div id="status"></div>
+                        <div id="progress">
+                            <div id="bar"></div>
+                            <div id="percent">0%</div>
+                        </div>
                     </div>
                             
                     <div id="NomeUsuTopo">
@@ -93,10 +100,52 @@ include('php/autoload.php');
             </div>
         </div>
         
-        
+        <input type="file" id="files" name="files[]" multiple />
+        <output id="list"></output>
         
     </body>
+    <script>
+  function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {
+
+      // Only process image files.
+      if (!f.type.match('image.*')) {
+        continue;
+      }
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          var span = document.createElement('span');
+          span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                            '" title="', escape(theFile.name), '"/>'].join('');
+          document.getElementById('list').insertBefore(span, null);
+        };
+      })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+    }
+  }
+
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+</script>
     <script type="text/javascript">
+          
+         /* #imagem Ã© o id do input, ao alterar o conteudo do input execurarÃ¡ a funÃ§Ã£o baixo */
+         $('#imag').on('change',function(){
+             $('#visualizar').html('<img src="ajax-loader.gif" alt="Enviando..."/> Enviando...');
+            /* Efetua o Upload sem dar refresh na pagina */          
+            $('#formulario').ajaxForm({
+                target:'#visualizar' // o callback serÃ¡ no elemento com o id #visualizar
+             }).submit();
+            });
           var variaveis=location.search.split("?");
           var quebra = variaveis[1].split("=");
           var login = quebra[1];
@@ -133,7 +182,7 @@ include('php/autoload.php');
     $(document).ready(function(){
         $("#imagePerfil").click(function(){
             $(".none").click();
-            $(".percent").css("display","block");
+            //$("#progress").css("display","block");
         });
         $("#q").autocomplete({
             source:"ajax/busca.php?acao=busca_topo",
@@ -166,38 +215,6 @@ include('php/autoload.php');
         $(viewableText).click(divClicked);
     }
     $("#TextoSobreAutor").click(divClicked);
-    
-    (function() {
-    
-        var bar = $('.bar');
-        var percent = $('.percent');
-        var status = $('#status');
-
-        $('form').ajaxForm({
-            beforeSend: function() {
-                status.empty();
-                var percentVal = '0%';
-                bar.width(percentVal)
-                percent.html(percentVal);
-            },
-            uploadProgress: function(event, position, total, percentComplete) {
-                var percentVal = percentComplete + '%';
-                bar.width(percentVal)
-                percent.html(percentVal);
-                        //console.log(percentVal, position, total);
-            },
-            success: function() {
-                var percentVal = '100%';
-                bar.width(percentVal)
-                percent.html(percentVal);
-            },
-                complete: function(xhr) {
-                        status.html(xhr.responseText);
-                        percent.css("display","none");
-                }
-        }); 
-
-    })();
     
     //Jquery Menu!
     var arrowimages={down:['downarrowclass', 'css/images/arrow-down.gif', 25]}
@@ -241,5 +258,6 @@ include('php/autoload.php');
 
     //build menu with ID="myjquerymenu" on page:
     jquerycssmenu.buildmenu("myjquerymenu", arrowimages)
+     
     </script>
 </html>

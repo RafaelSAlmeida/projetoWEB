@@ -68,7 +68,7 @@ include('php/utilitarios.php');
  
     /* #imagem Ã© o id do input, ao alterar o conteudo do input execurarÃ¡ a funÃ§Ã£o baixo */
      $('#imag').on('change',function(){
-         $('#visualizar').html('<img src="ajax-loader.gif" alt="Enviando..."/> Enviando...');
+         $('#visualizar').html('<img src="/imagem/ajax-loader.gif" alt="Enviando..."/> Enviando...');
         /* Efetua o Upload sem dar refresh na pagina */          
         $('#formulario').ajaxForm({
             target:'#visualizar' // o callback serÃ¡ no elemento com o id #visualizar
