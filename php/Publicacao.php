@@ -85,6 +85,7 @@ class Publicacao{
     function inserePublicacao(){
         $sql = "INSERT INTO publicacao(usuario_id, pub_data, pub_mensagem, pub_url, pub_tipo_midia, pub_n_acesso, pub_autor, pub_titulo) VALUES
                             ({$this->usuario_id},'{$this->pub_data}','{$this->pub_mensagem}','{$this->pub_url}',{$this->pub_tipo_midia},{$this->pub_n_acesso},'{$this->pub_autor}','{$this->pub_titulo}')";
+        
         $this->conn->execute_query($sql);
         
     }
