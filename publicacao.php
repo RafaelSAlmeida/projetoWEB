@@ -43,49 +43,86 @@ $id_usuario = 1;
                 </form>
                 
             </div>
-            <div id="conteudo">
+            <div id="conteudo" style="background-color: #ccc;">
                 <div class="wrap">
-                <div id="info_usuario">
-                    <br/>
-                    <div class="FotoPerfil">
-                        <img src="imagem/padrao.png" id="imagePerfil" onload="redimensiona()"/>
-                        <form method="POST">
-                            <input type="file" class="none" name="ImagemPerfil" />
-                            
-                            <div class="percent" style="display: none">0%</div >
-                        </form>
-                    </div>
+                    <div id="left">
+                        <div id="infoUsuario">
+                            <div class="foto_perfil">
+                                <img src="imagem/padrao.png" id="imagePerfil" onload="redimensiona()"/>
+                                <form id="form" method="post" enctype="multipart/form-data" action="ajax/upload.php">
+                                    <input type="file" id="imag" name="imag" style="display:none;"/>
+                                </form>
+                            </div>
 
-                    <div id="status"></div>
-                            
-                    <div id="NomeUsuTopo">
-                        <p id="Nome_usuario">Nome do Usuário</p>
-                        <div id="LinksPerfil">
-                            <label id="num_publicacao"></label><a href="">Publicações</a>
-                            <a href="">Fotos</a>
-                            <a href="">Músicas</a>
-                            <a href="">Vídeos</a>
+                            <div id="info_pessoal_usuario">
+                                <p>Nome do Usuário</p>
+                                <br/>
+                                <div id="perfilCnt">
+                                    <div class="linkCnt">
+                                        <a href="#">Publicações</a><br/>
+                                        <span id="pubCnt" >3132132</span>
+                                    </div>
+                                    <div class="linkCnt">
+                                        <a href="">Fotos</a><br/>
+                                        <span id="pubCnt" >3132132</span>
+                                    </div>
+                                    <div class="linkCnt">
+                                        <a href="">Músicas</a><br/>
+                                        <span id="pubCnt" >3132132</span>
+                                    </div>
+
+                                    <div class="linkCnt">
+                                        <a href="">Vídeos</a><br/>
+                                        <span id="pubCnt" >3132132</span>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
+                        <br/>
+                        <div class="bubble" >
+                            <form id="formulario" method="post" enctype="multipart/form-data" action="ajax/inserir.php">
+                                <input type="file" id="arq" name="arq" style="display:none;"/> 
+                                <textarea id="post" name="post" style="width:99%;height:80px;border:none;resize:none;outline:0"></textarea>
+                                <img id="imagem" src="imagem/camera.png" height="25px" style="margin-left:10px;float:left;"/>
+                                <img id="video" src="imagem/video.png" height="25px" style="margin-left:10px;float:left;"/>
+                                <img id="audio" src="imagem/som.png" height="25px" style="margin-left:10px;float:left;"/>
+                                <div id="progressbar"><div class="progress-label"></div></div>
+                                <input name="tipo_arquivo" id="tipo_arquivo" type="hidden"/>
+                                <input name="acao" id="acao" type="hidden" value="inserir_publicacao"/>
+                                <input name="usuario" id="usuario" type="hidden" value="<?=$id_usuario?>"/>
+                                <input type="button" class="button" value="Publicar" id="publicar"/>
+                            </form>
+
+                        </div> 
+
+                        <hr></hr>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
                     </div>
-                </div>
-                <div class="bubble" >
-                    <form id="formulario" method="post" enctype="multipart/form-data" action="ajax/inserir.php">
-                        <input type="file" id="arq" name="arq" style="display:none;"/> 
-                        <textarea id="post" name="post" style="width:99%;height:110px;border:none;resize:none;outline:0"></textarea>
-                        <img id="imagem" src="imagem/camera.png" height="25px" style="margin-left:10px;float:left;"/>
-                        <img id="video" src="imagem/video.png" height="25px" style="margin-left:10px;float:left;"/>
-                        <img id="audio" src="imagem/som.png" height="25px" style="margin-left:10px;float:left;"/>
-                        <div id="progressbar"><div class="progress-label"></div></div>
-                        <input name="tipo_arquivo" id="tipo_arquivo" type="hidden"/>
-                        <input name="acao" id="acao" type="hidden" value="inserir_publicacao"/>
-                        <input name="usuario" id="usuario" type="hidden" value="<?=$id_usuario?>"/>
-                        <input type="button" class="button" value="Publicar" id="publicar"/>
-                    </form>
-                    
-                </div>
-                <div id="publicacoes">    
-                    <h3 >Publicações</h3>
-                </div>    
+                    <div id="right">
+                        colocar atualizações de todo mundo!!
+                        utilizar periodic refresh
+                    </div>
                 </div>
                 
             </div>
@@ -101,6 +138,23 @@ $id_usuario = 1;
         
     </body>
     <script type="text/javascript">
+        
+        function redimensiona()
+            {
+                document.images['imagePerfil'].width = 100;
+            }
+          var delay = (function(){
+            var timer = 0;
+            return function(callback, ms){
+              clearTimeout (timer);
+              timer = setTimeout(callback, ms);
+            };
+          })();
+          
+          function redimensionaTopo()
+            {
+                document.images['imagePerfilTopo'].width = 50;
+            }
    $(document).ready(function(){
     var progressbar = $("#progressbar"),
         progressLabel = $(".progress-label");
