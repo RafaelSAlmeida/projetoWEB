@@ -54,7 +54,7 @@ include('php/autoload.php');
                 </div>
             </div>
             </div>
-            <div id="conteudo" style="background-image: url('imagem/imagem-perfil4.jpg'); overflow: auto;">
+            <div id="conteudo" style="background-image: url('imagem/imagem-perfil.jpg'); overflow: auto;">
                 <div class="wrap" style="background-color: #FFFFFF;">
                     <br/>
                     <br/>
