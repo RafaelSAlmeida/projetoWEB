@@ -2,6 +2,8 @@
 <?php
 include('php/autoload.php');
 include('php/utilitarios.php');
+
+$id_usuario = 1;
 ?>
 <html>
     <head>
@@ -26,6 +28,8 @@ include('php/utilitarios.php');
             text-align: center;
             top: 4px;
             font-weight: bold;
+            width:100%;
+            height:100%;
             text-shadow: 1px 1px 0 #fff;
           }
         </style>
@@ -39,25 +43,94 @@ include('php/utilitarios.php');
                 </form>
                 
             </div>
-            <div id="conteudo">
+            <div id="conteudo" style="background-color: #ccc;">
                 <div class="wrap">
-                
-                <div class="bubble" >
-                    <form id="formulario" method="post" enctype="multipart/form-data" action="ajax/upload.php">
-                        <input type="file" id="imag" name="imag" style="display:none;"/> 
-                        <textarea id="post" style="width:99%;height:110px;border:none;resize:none;outline:0"></textarea>
-                        <img id="imagem" src="imagem/camera.png" height="25px" style="margin-left:10px;float:left;"/>
-                        <img id="video" src="imagem/video.png" height="25px" style="margin-left:10px;float:left;"/>
-                        <img id="audio" src="imagem/som.png" height="25px" style="margin-left:10px;float:left;"/>
-                        <div id="progressbar"><div class="progress-label">Loading...</div></div>
-                        <input name="tipo_arquivo" id="tipo_arquivo" type="text" />
-                        <input type="button" class="button" value="Publicar" id="publicar"/>
-                    </form>
-                    
+                    <div id="left">
+                        <div id="infoUsuario">
+                            <div class="foto_perfil">
+                                <img src="imagem/padrao.png" id="imagePerfil" onload="redimensiona()"/>
+                                <form id="form" method="post" enctype="multipart/form-data" action="ajax/upload.php">
+                                    <input type="file" id="imag" name="imag" style="display:none;"/>
+                                </form>
+                            </div>
+
+                            <div id="info_pessoal_usuario">
+                                <p>Nome do Usuário</p>
+                                <br/>
+                                <div id="perfilCnt">
+                                    <div class="linkCnt">
+                                        <a href="#">Publicações</a><br/>
+                                        <span id="pubCnt" >3132132</span>
+                                    </div>
+                                    <div class="linkCnt">
+                                        <a href="">Fotos</a><br/>
+                                        <span id="pubCnt" >3132132</span>
+                                    </div>
+                                    <div class="linkCnt">
+                                        <a href="">Músicas</a><br/>
+                                        <span id="pubCnt" >3132132</span>
+                                    </div>
+
+                                    <div class="linkCnt">
+                                        <a href="">Vídeos</a><br/>
+                                        <span id="pubCnt" >3132132</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="bubble" >
+                            <form id="formulario" method="post" enctype="multipart/form-data" action="ajax/inserir.php">
+                                <input type="file" id="arq" name="arq" style="display:none;"/> 
+                                <textarea id="post" name="post" style="width:99%;height:80px;border:none;resize:none;outline:0"></textarea>
+                                <img id="imagem" src="imagem/camera.png" height="25px" style="margin-left:10px;float:left;"/>
+                                <img id="video" src="imagem/video.png" height="25px" style="margin-left:10px;float:left;"/>
+                                <img id="audio" src="imagem/som.png" height="25px" style="margin-left:10px;float:left;"/>
+                                <div id="progressbar"><div class="progress-label"></div></div>
+                                <input name="tipo_arquivo" id="tipo_arquivo" type="hidden"/>
+                                <input name="acao" id="acao" type="hidden" value="inserir_publicacao"/>
+                                <input name="usuario" id="usuario" type="hidden" value="<?=$id_usuario?>"/>
+                                <input type="button" class="button" value="Publicar" id="publicar"/>
+                            </form>
+
+                        </div> 
+
+                        <hr></hr>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                    </div>
+                    <div id="right">
+                        colocar atualizações de todo mundo!!
+                        utilizar periodic refresh
+                    </div>
                 </div>
-                    <h3 >Publicações</h3>
-                </div>
                 
+            </div>
+            <div class="rodape">
+                <center>
+                    <div style="height:40px;width:60%;border: inherit;border-color: #fff;">
+                    </div>
+                </center>
             </div>
         </div>
         
@@ -65,17 +138,31 @@ include('php/utilitarios.php');
         
     </body>
     <script type="text/javascript">
+        
+        function redimensiona()
+            {
+                document.images['imagePerfil'].width = 100;
+            }
+          var delay = (function(){
+            var timer = 0;
+            return function(callback, ms){
+              clearTimeout (timer);
+              timer = setTimeout(callback, ms);
+            };
+          })();
+          
+          function redimensionaTopo()
+            {
+                document.images['imagePerfilTopo'].width = 50;
+            }
    $(document).ready(function(){
     var progressbar = $("#progressbar"),
         progressLabel = $(".progress-label");
- 
+    var sucesso = true;
         progressbar.progressbar({
          value: false,
          change: function() {
            progressLabel.text( progressbar.progressbar( "value" ) + "%" );
-         },
-         complete: function() {
-           progressLabel.text( "Publicado" );
          }
        });
    
@@ -86,18 +173,34 @@ include('php/utilitarios.php');
         });
         
         $("#publicar").click(function(){
-            $(this).hide();
-            $(".ui-progressbar").show();
-            $('#formulario').ajaxForm({
-                uploadProgress: function(event, position, total, percentComplete) { //on progress
+            
+            if($("#post").val()!==""){
+                $(this).hide();
+                $(".ui-progressbar").show();
+                $('#formulario').ajaxForm({
+                    uploadProgress: function(event, position, total, percentComplete) { //on progress
 
-                            progressbar.progressbar( "value", percentComplete );
+                                progressbar.progressbar( "value", percentComplete );
 
-                 },
-                complete: function(response) { // on complete
-                    alert(response.responseText);
-                }
-             }).submit(); 
+                     },
+                    complete: function(response) { // on complete
+                        if(response.responseText){
+                            aviso("Aviso",response.responseText,'ui-icon-notice');
+                            progressbar.hide();
+                            $("#publicar").show();
+                            $("#tipo_arquivo").val("");
+                            $("#arq").val("");
+                            $("#audio").attr("src","imagem/som.png");
+                            $("#video").attr("src","imagem/video.png");
+                            $("#imagem").attr("src","imagem/camera.png");
+                        }
+                        else
+                            location.reload();
+                    }
+                 }).submit(); 
+             }else{
+                aviso("Aviso","Falta o POST Mano!",'ui-icon-notice');
+             }
         });    
         $("#imagem").click(function(){
 
@@ -112,21 +215,46 @@ include('php/utilitarios.php');
                 $("#audio").attr("src","imagem/som_cinza.png");
                 $("#video").attr("src","imagem/video_cinza.png");
                 $("#imagem").attr("src","imagem/camera_azul.png");
-                $("#imag").click();
+                $("#arq").click();
+                
             }
            
         });
-            
+            $("#arq").change(function(){
+                
+               
+            });
             $("#video").click(function(){
-                $("#audio").attr("src","imagem/som_cinza.png");
-                $("#video").attr("src","imagem/video_azul.png");
-                $("#imagem").attr("src","imagem/camera_cinza.png");
+                if($(this).attr("src")==="imagem/camera_azul.png")
+                {
+                     $("#tipo_arquivo").val("");
+                     $("#audio").attr("src","imagem/som.png");
+                     $("#video").attr("src","imagem/video.png");
+                     $("#imagem").attr("src","imagem/camera.png");
+                }else{
+                     $("#tipo_arquivo").val("video");
+                     $("#audio").attr("src","imagem/som_cinza.png");
+                     $("#video").attr("src","imagem/video_azul.png");
+                     $("#imagem").attr("src","imagem/camera_cinza.png");
+                     $("#arq").click();
+                 }
             });
             
             $("#audio").click(function(){
-                $("#audio").attr("src","imagem/som_azul.png");
-                $("#video").attr("src","imagem/video_cinza.png");
-                $("#imagem").attr("src","imagem/camera_cinza.png");
+                if($(this).attr("src")==="imagem/camera_azul.png")
+                {
+                     $("#tipo_arquivo").val("");
+                     $("#audio").attr("src","imagem/som.png");
+                     $("#video").attr("src","imagem/video.png");
+                     $("#imagem").attr("src","imagem/camera.png");
+                }else{
+                     $("#tipo_arquivo").val("audio");
+                     $("#audio").attr("src","imagem/som_azul.png");
+                     $("#video").attr("src","imagem/video_cinza.png");
+                     $("#imagem").attr("src","imagem/camera_cinza.png");
+                     $("#arq").click();
+                 }
+                
             });
             
            
