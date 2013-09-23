@@ -21,7 +21,7 @@ include('php/autoload.php');
             <div id="topo">
                 <form class="form-search" action="" method="GET">
     
-                        <input type="text" class="textfield inputSearch" id="q" name="q" placeholder="Busca o usuário aqui..." required>
+                    <input type="text" class="textfield inputSearch" id="q" name="q" placeholder="Busca o usuário aqui..." required>
                         
                 </form>
                 <div id="usuarioTopo">
@@ -31,7 +31,7 @@ include('php/autoload.php');
             </div>
             </div>
             <div id="conteudo">
-                <div class="wrap">
+                <div class="wrap" style="background-color:#fff;">
                     <br/>
                     <br/>
                     <b>Resultado:</b>

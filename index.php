@@ -14,6 +14,7 @@ include('php/utilitarios.php');
         
         <link rel="stylesheet" type="text/css" href="css/geral.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.9.2.custom.css" />
+        <link rel="stylesheet" href="media.css" type="text/css" media="screen and (max-width:480px)" />
         <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.js"></script>
     </head>
@@ -26,8 +27,7 @@ include('php/utilitarios.php');
                         
                 </form>
             </div>
-            <div id="CantoEsq"></div>
-            <div id="conteudo" style="background-image: url('imagem/background.jpg');">
+            <div id="conteudo" style="background-size: cover;">
                 <div class="wrap">
                     <div id="esquerda">
                     <h1>Bem vindo</h1>
@@ -41,26 +41,26 @@ include('php/utilitarios.php');
                     <div id="login"  class="div_transparente">
                         <h2>Login</h2>
                         
-                        <input type="text" id="usr" name="usr" placeholder="Usuário ou E-mail" style="width:235px"/>
+                        <input type="text" id="usr" name="usr" placeholder="Usuário ou E-mail" style="width:88%"/>
                         <br/>
-                        <input type="password" id="pass" name="pass" placeholder="Senha" style="width:235px"/><br/>
+                        <input type="password" id="pass" name="pass" placeholder="Senha" style="width:88%"/><br/>
                         <label id="aviso"></label>
                         <br/>
                         <input type="checkbox" id="lembrar"/> <label for="lembrar">Continuar conectado</label><br/>
                         <a href="#" id="esqueceu">Esqueceu sua senha?</a>
                         <br/>
-                        <input type="button" class="button" id="entrar" name="entrar" value="ENTRAR" />
+                        <input type="button" class="button" id="entrar" name="entrar" value="ENTRAR"/>
                     </div>
                     <div id="join"  class="div_transparente">
                         <h2>Crie sua Conta</h2>
                        <form action="" id="formCadastro" method="POST"> 
-                        <input type="text" id="nome" name="nome" placeholder="Nome" required="true" style="width:235px"/>
+                        <input type="text" id="nome" name="nome" placeholder="Nome" required="true" style="width:88%"/>
                         <label id="nomeValidate"></label>
                         <br/>
-                        <input type="text" id="email" name="email" placeholder="E-mail" required="true" style="width:235px;float:left;"/>
+                        <input type="text" id="email" name="email" placeholder="E-mail" required="true" style="width:88%;float:left;"/>
                         <span id="emailValidate" class="none" style ="width:16px;float:left;margin-top: 8px;"></span>
                         <br/>
-                        <input type="text" id="senha" name="senha" placeholder="Senha" maxlength="10" required="true" style="width:235px"/>
+                        <input type="text" id="senha" name="senha" placeholder="Senha" maxlength="10" required="true" style="width:88%"/>
                         <label id="senhaValidate"></label>
                         <br/>
                         <br/>
@@ -195,6 +195,18 @@ include('php/utilitarios.php');
                 } 
             });
             //BUTTON CADASTRAR
+            
+            var date = new Date();
+            var hora = date.getHours();
+            if(hora < 12 && hora > 6){
+                $('#conteudo').css("background-image", "url('imagem/CéuAzul.jpg')");
+            }
+            else if(hora < 18){
+                $('#conteudo').css("background-image", "url('imagem/PorSol.jpg')");
+            }
+            else{
+                $('#conteudo').css("background-image", "url('imagem/background.jpg')");
+            }
             
         });
         
