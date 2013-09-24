@@ -1,0 +1,390 @@
+/* 
+    Document   : media
+    Created on : 23/09/2013, 19:37:36
+    Author     : Rafael
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+*{
+    font-family: Verdana,Arial,sans-serif; 
+}
+input[type="text"],input[type="password"],select{
+    padding:6px 6px;
+}
+.none{
+    display:none;
+}
+h1{
+    font-size:24px;
+}
+p,label,a{
+    font-size:12px;
+}
+.erro{
+    border:1px solid red;   
+}
+#geral{
+    width:100%;
+    height:100%;
+}
+#topo{
+    width:100%;
+    height:60px;
+    position:fixed;
+    top:0px;
+    left:0px;
+    background-color: #252525;
+    background-image:url('../imagem/logo.png');
+    background-repeat: no-repeat;
+    background-position: 15%;
+    background-size: 13%;
+}
+.wrap{
+    margin-left:15%;
+    width:70%;
+    height: 100%;
+}
+
+.wrap #left{
+    width:70%;
+    height: 100%;
+    float:left;
+}
+
+.wrap #right{
+    width:30%;
+    height: 100%;
+    background-color:blue;
+    float:left;
+}
+
+.div_transparente{
+    background-color: rgba(220, 220, 220, 0.5);
+    padding: 8px;
+    -moz-border-radius:7px;
+    -webkit-border-radius:7px;
+    border-radius:7px;
+    margin-top:3%;
+}
+#conteudo{
+    width:100%;
+    height:100%;
+    position:fixed;
+    padding-top:20px;
+    top:60px;
+    left:0px;
+    background-color:#fff;
+    overflow: auto;
+    float:left;
+}
+
+#esquerda{
+    float:left;
+    width:59%;
+    height:100%;
+    padding-right: 5%;
+}
+
+#direita{
+    float:left;
+    width:30%;
+    height:100%;
+}
+.textfield{
+    border:none;    
+    background-color:transparent;
+    float:left;
+    width:380px;
+    outline: 0;
+}
+.form-search{
+    position: relative;
+    display: block;
+    width: 29%;
+    height: 50%;
+    top: 0;
+    padding: 6px 6px 3px 3px;
+    left: 30%;
+    top: 17%;
+    background: #fff;
+}
+
+.inputSearch{
+    width: 95%;
+}
+
+.resultados{
+    width: 100%;
+    height: 100%;
+}
+
+.qResultado{
+    width:100%;
+    height:120px;
+    border:1px solid #ccc;
+    margin-top:10px;
+}
+
+.qResultado img{
+    width:100px;
+    height:100%;
+    float:left;
+}
+.infoResultado{
+    width:auto;
+    float:left;
+    height:100%;
+}
+
+.infoUsuario{
+    font-weight: bold;
+    font-size: 16px;
+    text-indent:10px;
+}
+
+.infoPublic{
+    text-indent:20px;
+    line-height:30%;
+}
+
+.infoMidia{
+    font-weight: bold;
+    text-indent:20px;
+}
+
+#login,#join{
+    height:200px;
+}
+h2{
+    font-size:14px;
+}
+a:link, a:visited {
+    text-decoration: none;
+    color:black;
+}
+a:hover {
+    text-decoration: none; 
+    color: #006dc1;
+}
+a:active {
+    text-decoration: none;
+    color:black;
+}
+.FotoPerfil{
+    float: left;
+    padding-left: 5%;
+    position:relative;
+}
+#LinksPerfil a{
+    float:left;
+    right:55%;
+    border-right: solid;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+#NomeUsuTopo{
+    float:left;
+    position: absolute;
+    right:55%;
+}
+#SobreAutor{
+    top:30%;
+    position: absolute;
+    padding-left: 5%;
+}
+#TextoSobreAutor{
+    width: 500px;
+    height: 120px;
+    border: solid;
+    padding-left: 5%;
+}
+#PublicRecente{
+    position: absolute;
+    bottom: 35%;
+    padding-left: 5%;
+}
+#publicR{
+    position: absolute;
+    width: 500px;
+}
+#Destaques{
+    height: 80%;
+    border-left: solid;
+    position: absolute;
+    right: 30%;
+    padding-left: 30px;
+}
+.inputSearch{
+    background:url('../imagem/search-icon-hi.png') no-repeat;
+    background-size:16px 16px;
+    background-position: right;
+}
+
+.bubble 
+{
+    position: relative;
+    width: 450px;
+    height: 150px;
+    padding: 0px;
+    background: #FFFFFF;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    border: #ddd solid 2px;
+    margin-top: 13px;
+}
+
+.bubble:after 
+{
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 0 11px 13px;
+border-color: #FFFFFF transparent;
+display: block;
+width: 0;
+top: -13px;
+left: 17px;
+}
+
+.bubble:before 
+{
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 0 12px 14px;
+border-color: #ddd transparent;
+display: block;
+width: 0;
+z-index: 0;
+top: -16px;
+left: 16px;
+}
+#usuarioTopo{
+    position: fixed;
+    display: block;
+    width: 250px;
+    height: 50px;
+    top: 0;
+    padding: 6px 6px 3px 3px;
+    left: 80%;
+}
+
+#usuarioTopo {
+    padding-left: 6px;
+    color: #D2D2D2;
+}
+
+.jquerycssmenu{
+    float:right;
+    padding-top: 7%;
+    padding-right: 50%;
+    width:5%;
+}
+
+.jquerycssmenu ul{
+    float: left;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+/*Top level list items*/
+.jquerycssmenu ul li{
+    position: relative;
+    display: inline;
+    float: left;
+}
+
+/*Top level menu link items style*/
+.jquerycssmenu ul li a{
+    display: block;
+    padding: 5px 7px 4px 7px;
+}
+	
+/*1st sub level menu*/
+.jquerycssmenu ul li ul{
+    position: absolute;
+    left: 0;
+    display: block;
+    visibility: hidden;
+    z-index: 1;
+}
+
+/* Sub level menu links style */
+.jquerycssmenu ul li ul li a{
+    width: 100%; /*width of sub menus*/
+    background: white;
+    color: black;
+    padding: 4px 10px;
+    margin: 0;
+    border-top-width: 0;
+    border: 1px solid black;
+}
+
+/* ######### CSS classes applied to down arrow image  ######### */
+
+.downarrowclass{
+    position: absolute;
+    top: 7px;
+    right: 5px;
+    padding-top: 12%;
+}
+.rodape {
+   float:left;
+   position:fixed;
+   bottom:0;
+   width:100%;
+   left:0;
+   height:60px;   /* Mesma Altura do Rodapé */
+   background:rgb(48, 47, 47);
+}
+
+#info_usuario{
+    position:relative;
+    top:0;
+    left:0;
+    height:100000;
+}
+
+#infoUsuario{
+    position:relative;
+    height:100px;
+    width:100%;
+}
+
+
+/*
+    ------------
+*/
+.foto_perfil{
+    float:left;
+    width:100px;
+}
+
+#info_pessoal_usuario{
+    float:left;
+    height:100px;
+    width:80%;
+}
+.linkCnt{
+    padding-left:5px;
+    float:left;
+    width:100px;
+    border-right: solid 1px #ddd;
+    bottom:0px;
+}
+
+.linkCnt:last-child{
+    padding-left:5px;
+    float:left;
+    width:100px;
+    border-right:none;
+    bottom:0px;
+}
+
+hr{
+    margin-top: 25px;
+    color:#eee;
+}
