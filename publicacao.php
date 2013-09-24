@@ -43,12 +43,12 @@ $id_usuario = 1;
                 </form>
                 
             </div>
-            <div id="conteudo" style="background-color: #ccc;">
+            <div id="conteudo">
                 <div class="wrap">
                     <div id="left">
                         <div id="infoUsuario">
                             <div class="foto_perfil">
-                                <img src="imagem/padrao.png" id="imagePerfil" onload="redimensiona()"/>
+                                <img src="imagem/padrao.png" id="imagePerfil" style="width:100px;"/>
                                 <form id="form" method="post" enctype="multipart/form-data" action="ajax/upload.php">
                                     <input type="file" id="imag" name="imag" style="display:none;"/>
                                 </form>
@@ -96,28 +96,10 @@ $id_usuario = 1;
 
                         </div> 
 
-                        <hr></hr>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
+                        <center>
+                            <hr ></hr>
+                        </center>
+                        
                     </div>
                     <div id="right">
                         colocar atualizações de todo mundo!!
@@ -126,12 +108,6 @@ $id_usuario = 1;
                 </div>
                 
             </div>
-            <div class="rodape">
-                <center>
-                    <div style="height:40px;width:60%;border: inherit;border-color: #fff;">
-                    </div>
-                </center>
-            </div>
         </div>
         
         
@@ -139,22 +115,7 @@ $id_usuario = 1;
     </body>
     <script type="text/javascript">
         
-        function redimensiona()
-            {
-                document.images['imagePerfil'].width = 100;
-            }
-          var delay = (function(){
-            var timer = 0;
-            return function(callback, ms){
-              clearTimeout (timer);
-              timer = setTimeout(callback, ms);
-            };
-          })();
-          
-          function redimensionaTopo()
-            {
-                document.images['imagePerfilTopo'].width = 50;
-            }
+        
    $(document).ready(function(){
     var progressbar = $("#progressbar"),
         progressLabel = $(".progress-label");

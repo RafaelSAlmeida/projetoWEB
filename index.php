@@ -17,7 +17,7 @@ include('php/utilitarios.php');
         <script type="text/javascript" src="js/jquery-1.9.1.js"></script>
         <script type="text/javascript" src="js/jquery-ui-1.9.2.custom.js"></script>
     </head>
-    <body>
+    <body style="background-image: url('imagem/background.jpg');">
         
         <div id="geral">
             <div id="topo">
@@ -27,8 +27,8 @@ include('php/utilitarios.php');
                 </form>
             </div>
             <div id="CantoEsq"></div>
-            <div id="conteudo" style="background-image: url('imagem/background.jpg');">
-                <div class="wrap">
+            <div id="conteudo" >
+                <div class="wrap" style="background-color: transparent;">
                     <div id="esquerda">
                     <h1>Bem vindo</h1>
                     <p>Esta página Web tem por objetivo o desenvolvimento de uma rede social

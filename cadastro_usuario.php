@@ -26,57 +26,62 @@ if(!empty($_POST))
     <body>
         <div id="geral">
             <div id="topo">
-               
+                <form class="form-search" action="perfil.php" method="GET">
+                    <input type="text" class="textfield inputSearch" id="q" name="q" placeholder="Busca o usuário aqui..." required >
+                </form>
+                
             </div>
-            <div id="conteudo"  class="div_transparente">
+            <div id="conteudo">
                 <div class="wrap">
-                    <h1>SOU NOVO AQUI</h1>
-                    <form action="" method="POST" id="formUsuario">
-                        <input type="hidden" id="acao" name="acao" value="inserir_usuario"/>
-                        <input type="text" id="nome" name="nome" <?php if($nome) echo 'value="'.$nome.'"'; else echo 'placeholder="Nome"';?>" />
-                        <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome" /><br/>
-                        <input type="text" id="usuario" name="usuario" placeholder="Escolha seu usuário" />
-                        <label id="usuarioValidate" class="none" style ="width:16px;display:inline-block;margin-top: 8px;"></label><br/><br/>
-                        <label>Data de Nascimento:</label><br/>
-                        <select id="dia" name="dia" >
-                            <option value="">DIA</option>
-                        </select>
-                        
-                        <select id="mes" name="mes">
-                            <option value="">MÊS</option>
-                            <option value="1">JAN</option>
-                            <option value="2">FEV</option>
-                            <option value="3">MAR</option>
-                            <option value="4">ABR</option>
-                            <option value="5">MAI</option>
-                            <option value="6">JUN</option>
-                            <option value="7">JUL</option>
-                            <option value="8">AGO</option>
-                            <option value="9">SET</option>
-                            <option value="10">OUT</option>
-                            <option value="11">NOV</option>
-                            <option value="12q">DEZ</option>
-                        </select>
-                        
-                        <select id="ano" name="ano">
-                            <option value="">ANO</option>
-                        </select>
-                        <br/><br/>
-                        <input type="text" id="email" name="email" <?php if($email) echo 'value="'.$email.'"'; else echo 'placeholder="E-mail"';?> />
-                        <label id="emailValidate" class="none" style ="width:16px;display:inline-block;margin-top: 8px;"></label><br/>
-                        <input type="text" id="confEmail" name="confEmail" placeholder="Confirmação de E-mail" />
-                        <label id="confEmailValidate" class="none" style ="width:16px;display:inline-block;margin-top: 8px;"></label><br/>
-                        <input type="<?php if($senha) echo "password"; else echo "text";?>" id="senha" name="senha" <?php if($senha) echo 'value="'.$senha.'"'; else echo 'placeholder="Senha"';?>" /><br/>
-                        <input type="text" id="confSenha" name="confSenha" placeholder="Confirmação de Senha" />
-                        <label id="confSenhaValidate" class="none" style ="width:16px;display:inline-block;margin-top: 8px;"></label><br/><br/>
-                        <input type="button" class="button" id="cadastrar" name="cadastrar" value="Criar Conta" /><br/>
-                    </form>
+                    <div id="left">
+                        <h1>SOU NOVO AQUI</h1>
+                        <form action="" method="POST" id="formUsuario">
+                            <input type="hidden" id="acao" name="acao" value="inserir_usuario"/>
+                            <input type="text" id="nome" name="nome" <?php if($nome) echo 'value="'.$nome.'"'; else echo 'placeholder="Nome"';?>" />
+                            <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome" /><br/>
+                            <input type="text" id="usuario" name="usuario" placeholder="Escolha seu usuário" />
+                            <label id="usuarioValidate" class="none" style ="width:16px;display:inline-block;margin-top: 8px;"></label><br/><br/>
+                            <label>Data de Nascimento:</label><br/>
+                            <select id="dia" name="dia" >
+                                <option value="">DIA</option>
+                            </select>
+
+                            <select id="mes" name="mes">
+                                <option value="">MÊS</option>
+                                <option value="1">JAN</option>
+                                <option value="2">FEV</option>
+                                <option value="3">MAR</option>
+                                <option value="4">ABR</option>
+                                <option value="5">MAI</option>
+                                <option value="6">JUN</option>
+                                <option value="7">JUL</option>
+                                <option value="8">AGO</option>
+                                <option value="9">SET</option>
+                                <option value="10">OUT</option>
+                                <option value="11">NOV</option>
+                                <option value="12q">DEZ</option>
+                            </select>
+
+                            <select id="ano" name="ano">
+                                <option value="">ANO</option>
+                            </select>
+                            <br/><br/>
+                            <input type="text" id="email" name="email" <?php if($email) echo 'value="'.$email.'"'; else echo 'placeholder="E-mail"';?> />
+                            <label id="emailValidate" class="none" style ="width:16px;display:inline-block;margin-top: 8px;"></label><br/>
+                            <input type="text" id="confEmail" name="confEmail" placeholder="Confirmação de E-mail" />
+                            <label id="confEmailValidate" class="none" style ="width:16px;display:inline-block;margin-top: 8px;"></label><br/>
+                            <input type="<?php if($senha) echo "password"; else echo "text";?>" id="senha" name="senha" <?php if($senha) echo 'value="'.$senha.'"'; else echo 'placeholder="Senha"';?>" /><br/>
+                            <input type="text" id="confSenha" name="confSenha" placeholder="Confirmação de Senha" />
+                            <label id="confSenhaValidate" class="none" style ="width:16px;display:inline-block;margin-top: 8px;"></label><br/><br/>
+                            <input type="button" class="button" id="cadastrar" name="cadastrar" value="Criar Conta" /><br/>
+                        </form>
+                    </div>
+                    <div id="right">
+                    </div>
                 </div>
+                
             </div>
         </div>
-        
-        
-        
     </body>
     <script type="text/javascript">
         function validar(){
