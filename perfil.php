@@ -33,7 +33,7 @@ include('php/autoload.php');
         </style>
     </head>
     <body>
-        <div id="geral">
+         <div id="geral">
             <div id="topo">
                 <form class="form-search" action="" method="GET">
     
@@ -53,35 +53,47 @@ include('php/autoload.php');
                     </ul>
                 </div>
             </div>
-            </div>
-            <div id="conteudo" style="background-image: url('imagem/imagem-perfil.jpg'); overflow: auto;">
-                <div class="wrap" style="background-color: #FFFFFF;">
-                    <br/>
-                    <br/>
-                    <div class="FotoPerfil">
-                        <img src="imagem/padrao.png" id="imagePerfil" onload="redimensiona()"/>
-                        <form id="formulario" method="post" enctype="multipart/form-data" action="ajax/upload.php">
-                            <input type="file" id="imag" name="imag" style="display:none;"/>
-                            <input type="button" class="button" value="Salvar" id="salvar"/>
-                        </form>
-                
-                        <div id="progress" style="display: none;">
-                            <div id="bar"></div>
-                            <div id="percent">0%</div>
-                        </div>
+            <div id="conteudo">
+                <div class="wrap">
+                    <div id="left">
+                        <div id="infoUsuario">
+                            <div class="foto_perfil">
+                                <img src="imagem/padrao.png" id="imagePerfil" style="width:100px;"/>
+                                <form id="form" method="post" enctype="multipart/form-data" action="ajax/upload.php">
+                                    <input type="file" id="imag" name="imag" style="display:none;"/>
+                                </form>
+                            </div>
 
-                    </div>
-                            
-                    <div id="NomeUsuTopo">
-                        <p id="Nome_usuario">Nome do Usuário</p>
-                        <div id="LinksPerfil">
-                            <label id="num_publicacao"></label><a href="">Publicações</a>
-                            <a href="">Fotos</a>
-                            <a href="">Músicas</a>
-                            <a href="">Vídeos</a>
+                            <div id="info_pessoal_usuario">
+                                <p>Nome do Usuário</p>
+                                <br/>
+                                <div id="perfilCnt">
+                                    <div class="linkCnt">
+                                        <a href="#">Publicações</a><br/>
+                                        <span id="pubCnt" >3132132</span>
+                                    </div>
+                                    <div class="linkCnt">
+                                        <a href="">Fotos</a><br/>
+                                        <span id="pubCnt" >3132132</span>
+                                    </div>
+                                    <div class="linkCnt">
+                                        <a href="">Músicas</a><br/>
+                                        <span id="pubCnt" >3132132</span>
+                                    </div>
+
+                                    <div class="linkCnt">
+                                        <a href="">Vídeos</a><br/>
+                                        <span id="pubCnt" >3132132</span>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div id="SobreAutor">
+                        <br/>
+                        <center>
+                            <hr ></hr>
+                        </center>
+                        <div id="SobreAutor">
                         <p id="ParAutor">Sobre o NomeAutor<p>
                         <div id="TextoSobreAutor">
                             <span id="descricao_usu" >texto sobre o autortexto sobre o autortexto sobre o autor
@@ -100,15 +112,14 @@ include('php/autoload.php');
                                 Publicação Recente do UsárioPublicação Recente do Usário"</p>
                         </div>
                     </div>
-                    <div id="Destaques">
-                            <p>DESTAQUES</p>
                     </div>
-                    <div id="Baixo">
-                        
+                    <div id="right">
                     </div>
                 </div>
+                
             </div>
         </div>
+     
         
         
         

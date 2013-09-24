@@ -42,7 +42,6 @@ p,label,a{
     background-image:url('../imagem/logo.png');
     background-repeat: no-repeat;
     background-position: 15%;
-    background-size: 13%;
 }
 .wrap{
     margin-left:15%;
@@ -72,14 +71,19 @@ p,label,a{
 	   -moz-box-shadow: 6px 8px 6px 0 #014562;
 	        box-shadow: 6px 8px 6px 0 #014562;
 }
-
+#CantoEsq{
+    float:left;
+    background-image: url('../imagem/background.jpg');
+    position: fixed;
+    
+}
 .div_transparente{
     background-color: rgba(220, 220, 220, 0.5);
     padding: 8px;
     -moz-border-radius:7px;
-    -webkit-border-radius:7px;
-    border-radius:7px;
-    margin-top:3%;
+-webkit-border-radius:7px;
+ border-radius:7px;
+    margin-top:10px;
 }
 #conteudo{
     width:100%;
@@ -119,10 +123,6 @@ p,label,a{
     left: 30%;
     top: 17%;
     background: #fff;
-}
-
-.inputSearch{
-    width: 95%;
 }
 
 .resultados{

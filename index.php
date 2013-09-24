@@ -28,7 +28,7 @@ include('php/utilitarios.php');
                 </form>
             </div>
             <div id="conteudo" style="background-size: cover;">
-                <div class="wrap">
+                <div class="wrap"style="background-color: transparent;">
                     <div id="esquerda">
                     <h1>Bem vindo</h1>
                     <p>Esta página Web tem por objetivo o desenvolvimento de uma rede social
@@ -199,13 +199,13 @@ include('php/utilitarios.php');
             var date = new Date();
             var hora = date.getHours();
             if(hora < 12 && hora > 6){
-                $('#conteudo').css("background-image", "url('imagem/CéuAzul.jpg')");
+                $('body').css("background-image", "url('imagem/CéuAzul.jpg')");
             }
             else if(hora < 18){
-                $('#conteudo').css("background-image", "url('imagem/PorSol.jpg')");
+                $('body').css("background-image", "url('imagem/PorSol.jpg')");
             }
             else{
-                $('#conteudo').css("background-image", "url('imagem/background.jpg')");
+                $('body').css("background-image", "url('imagem/background.jpg')");
             }
             
         });
